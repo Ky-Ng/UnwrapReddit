@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {printFromParser} from "@/parsers/parser";
+import {printFromParser, getSubReddit} from "@/parsers/parser";
 
 export default {
   name: "Dashboard",
@@ -18,8 +18,8 @@ export default {
     test(s) {
       console.log("saying hi from dashboard" + s)
       printFromParser();
+      getSubReddit();
     },
-
   }
 }
 </script>
