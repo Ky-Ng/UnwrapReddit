@@ -16,17 +16,15 @@ function printFromParser(){
 let arrRes = [];
 
 async function getSubReddit() {
-
-    console.log(apiParser.getSubreddit('AskReddit'));
-    // apiParser.getHot().map(post => post.title).then(console.log);
-    // apiParser.getTop('dogs').map(post => post.title).then(console.log);
-
-    await apiParser.getTop('dogs').map(post => {
-            arrRes.push(post);
-            // console.log(post.title);
-        }
-    );
-    await apiParser.getTop('dogs', {before: arrRes[arrRes.length-1].id}).map(post => {
+    // await apiParser.getTop('dogs').map(post => {
+    //         arrRes.push(post);
+    //         // console.log(post.title);
+    //     }
+    // );
+    await apiParser.getTop('dogs',
+        // {before: arrRes[arrRes.length-1].id}
+        {limit: Infinity, depth: Infinity}
+        ).map(post => {
             arrRes.push(post);
             // console.log(post.title);
         }
