@@ -101,7 +101,7 @@ export default {
   },
 
   watch: {
-    search(val) {
+    search() {
       // Items have already been loaded
       if (this.items.length > 0) return
 

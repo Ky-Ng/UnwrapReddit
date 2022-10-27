@@ -16,4 +16,9 @@ async function fetchSubRedditPosts() {
     console.log("done");
 }
 
-export{fetchSubRedditPosts, redditPosts}
+async function getSubReddit(subRedditName){
+    let subreddit = await apiParser.getSubreddit(subRedditName)
+    console.log(subreddit);
+}
+
+export{fetchSubRedditPosts, redditPosts, getSubReddit}
