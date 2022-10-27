@@ -8,8 +8,7 @@
         fetch 10 reddit posts
       </v-btn>
       <v-btn @click="printArrValue">
-        print values in response array to console
-      </v-btn>
+print titles      </v-btn>
     </v-row>
 
   </v-main>
@@ -32,7 +31,7 @@ export default {
     printArrValue() {
       console.log(arrRes.length)
       arrRes.forEach(
-          redditpost => console.log(redditpost.title)
+          redditpost => console.log(redditpost)
       );
     },
   }
