@@ -4,7 +4,7 @@
       <v-col>
         <!--        <redditSearch></redditSearch>-->
       </v-col>
-      <v-btn @click="test">
+      <v-btn @click="fetchPosts">
         fetch 10 reddit posts
       </v-btn>
       <v-btn @click="printArrValue">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {printFromParser, getSubReddit, arrRes} from "@/parsers/parser";
+import {getSubReddit, arrRes} from "@/parsers/parser";
 // import Search from "@/components/Search";
 
 export default {
@@ -26,14 +26,11 @@ export default {
   },
   data: () => ({}),
   methods: {
-    test(s) {
-      console.log("saying hi from dashboard" + s)
-      printFromParser();
+    fetchPosts() {
       getSubReddit();
     },
     printArrValue() {
-      console.log("from the arrRes");
-      console.log(arrRes.length);
+      console.log(arrRes.length)
       arrRes.forEach(
           redditpost => console.log(redditpost.title)
       );
