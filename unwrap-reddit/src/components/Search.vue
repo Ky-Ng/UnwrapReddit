@@ -1,127 +1,118 @@
 <template>
-  <div>
-    <v-card
-        color="red lighten-2"
-        dark
-    >
-      <v-card-title class="text-h5 red lighten-3">
-        Search for Public APIs
-      </v-card-title>
-      <v-card-text>
-        Explore hundreds of free API's ready for consumption! For more information visit
-        <a
-            class="grey--text text--lighten-3"
-            href="https://github.com/toddmotto/public-apis"
-            target="_blank"
-        >the GitHub repository</a>.
-      </v-card-text>
-      <v-card-text>
-        <v-autocomplete
-            v-model="model"
-            :items="items"
-            :loading="isLoading"
-            :search-input.sync="search"
-            color="white"
-            hide-no-data
-            hide-selected
-            item-text="Description"
-            item-value="API"
-            label="Public APIs"
-            placeholder="Start typing to Search"
-            prepend-icon="mdi-database-search"
-            return-object
-        ></v-autocomplete>
-      </v-card-text>
-      <v-divider></v-divider>
-      <v-expand-transition>
-        <v-list
-            v-if="model"
-            class="red lighten-3"
-        >
-          <v-list-item
-              v-for="(field, i) in fields"
-              :key="i"
-          >
-            <v-list-item-content>
-              <v-list-item-title v-text="field.value"></v-list-item-title>
-              <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-expand-transition>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-            :disabled="!model"
-            color="grey darken-3"
-            @click="model = null"
-        >
-          Clear
-          <v-icon right>
-            mdi-close-circle
-          </v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-
-  </div>
+  <v-toolbar
+      dark
+      color="teal"
+  >
+<!--    <v-toolbar-title>State selection</v-toolbar-title>-->
+    <v-autocomplete
+        v-model="select"
+        :loading="loading"
+        :items="items"
+        :search-input.sync="search"
+        cache-items
+        class="mx-4"
+        flat
+        hide-no-data
+        hide-details
+        label="r/"
+        solo-inverted
+    ></v-autocomplete>
+    {{formatSearch}}
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+  </v-toolbar>
 </template>
 
 <script>
 export default {
   name: "Search",
-  data: () => ({
-    descriptionLimit: 60,
-    entries: [],
-    isLoading: false,
-    model: null,
-    search: null,
-  }),
-
-  computed: {
-    fields() {
-      if (!this.model) return []
-
-      return Object.keys(this.model).map(key => {
-        return {
-          key,
-          value: this.model[key] || 'n/a',
-        }
-      })
-    },
-    items() {
-      return this.entries.map(entry => {
-        const Description = entry.Description.length > this.descriptionLimit
-            ? entry.Description.slice(0, this.descriptionLimit) + '...'
-            : entry.Description
-
-        return Object.assign({}, entry, {Description})
-      })
+  data() {
+    return {
+      loading: false,
+      items: [],
+      search: null,
+      formatSearch: null,
+      select: null,
+      states: [
+        'Alabama',
+        'Alaska',
+        'American Samoa',
+        'Arizona',
+        'Arkansas',
+        'California',
+        'Colorado',
+        'Connecticut',
+        'Delaware',
+        'District of Columbia',
+        'Federated States of Micronesia',
+        'Florida',
+        'Georgia',
+        'Guam',
+        'Hawaii',
+        'Idaho',
+        'Illinois',
+        'Indiana',
+        'Iowa',
+        'Kansas',
+        'Kentucky',
+        'Louisiana',
+        'Maine',
+        'Marshall Islands',
+        'Maryland',
+        'Massachusetts',
+        'Michigan',
+        'Minnesota',
+        'Mississippi',
+        'Missouri',
+        'Montana',
+        'Nebraska',
+        'Nevada',
+        'New Hampshire',
+        'New Jersey',
+        'New Mexico',
+        'New York',
+        'North Carolina',
+        'North Dakota',
+        'Northern Mariana Islands',
+        'Ohio',
+        'Oklahoma',
+        'Oregon',
+        'Palau',
+        'Pennsylvania',
+        'Puerto Rico',
+        'Rhode Island',
+        'South Carolina',
+        'South Dakota',
+        'Tennessee',
+        'Texas',
+        'Utah',
+        'Vermont',
+        'Virgin Island',
+        'Virginia',
+        'Washington',
+        'West Virginia',
+        'Wisconsin',
+        'Wyoming',
+      ],
+    }
+  },
+  watch: {
+    search(val) {
+      val && val !== this.select && this.querySelections(val)
+      this.formatSearch = "r/" + this.search;
     },
   },
-
-  watch: {
-    search() {
-      // Items have already been loaded
-      if (this.items.length > 0) return
-
-      // Items have already been requested
-      if (this.isLoading) return
-
-      this.isLoading = true
-
-      // Lazily load input items
-      fetch('https://api.publicapis.org/entries')
-          .then(res => res.json())
-          .then(res => {
-            const {count, entries} = res
-            this.count = count
-            this.entries = entries
-          })
-          .catch(err => {
-            console.log(err)
-          })
-          .finally(() => (this.isLoading = false))
+  methods: {
+    querySelections(v) {
+      this.loading = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.items = this.states.filter(e => {
+          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
+        this.loading = false
+      }, 500)
     },
   },
 }

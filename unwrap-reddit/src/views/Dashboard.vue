@@ -2,7 +2,7 @@
   <v-main>
     <v-row>
       <v-col>
-<!--        <redditSearch></redditSearch>-->
+        <redditSearch></redditSearch>
       </v-col>
       <v-btn @click="fetchPosts">
         Fetch Reddit Posts
@@ -20,12 +20,12 @@
 
 <script>
 import {fetchSubRedditPosts, redditPosts,getSubReddit} from "@/parsers/parser";
-// import Search from "@/components/Search";
+import Search from "@/components/Search";
 
 export default {
   name: "Dashboard",
   components: {
-    // redditSearch: Search,
+    redditSearch: Search,
   },
   data: () => ({}),
   methods: {
