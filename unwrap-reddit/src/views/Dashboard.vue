@@ -5,18 +5,18 @@
         <!--        <redditSearch></redditSearch>-->
       </v-col>
       <v-btn @click="fetchPosts">
-        fetch 10 reddit posts
+        Fetch Reddit Posts
       </v-btn>
-      <v-btn @click="printArrValue">
-print titles      </v-btn>
+      <v-btn @click="printPostsToConsole">
+        Print Posts To Console
+      </v-btn>
     </v-row>
 
   </v-main>
 </template>
 
 <script>
-import {getSubReddit, arrRes} from "@/parsers/parser";
-// import Search from "@/components/Search";
+import {fetchSubRedditPosts, redditPosts} from "@/parsers/parser";
 
 export default {
   name: "Dashboard",
@@ -26,14 +26,14 @@ export default {
   data: () => ({}),
   methods: {
     fetchPosts() {
-      getSubReddit();
+      fetchSubRedditPosts();
     },
-    printArrValue() {
-      console.log(arrRes.length)
-      arrRes.forEach(
+    printPostsToConsole(){
+      console.log(redditPosts.length);
+      redditPosts.forEach(
           redditpost => console.log(redditpost)
       );
-    },
+    }
   }
 }
 </script>
