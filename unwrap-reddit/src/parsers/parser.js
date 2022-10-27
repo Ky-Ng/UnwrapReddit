@@ -5,7 +5,7 @@ const apiParser = new snoowrap({
     userAgent: 'this is a description of my apiParser- Kyle Ng',
     clientId: 'qWhfH3k31_jr6awhEb3TSQ',
     clientSecret: 'aCsq5mE-nmuorGRyBGWYwAe9yLrpUw',
-    username: 'Maleficent_Dish_3872',
+    username: 'unwrapreddit',
     password: 'redditpass'
     // refreshToken: 'put your refresh token here'
 });
@@ -17,6 +17,8 @@ function printFromParser(){
 function getSubReddit() {
 
     console.log(apiParser.getSubreddit('AskReddit'));
+    // apiParser.getHot().map(post => post.title).then(console.log);
+    apiParser.getTop('dogs').map(post => post.title).then(console.log);
 }
 
 export{printFromParser, getSubReddit}
