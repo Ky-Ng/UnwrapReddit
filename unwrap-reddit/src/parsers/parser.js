@@ -13,23 +13,23 @@ const apiParser = new snoowrap({
 function printFromParser(){
     console.log("hello from parser");
 }
+let arrRes = [];
 
-function getSubReddit() {
+async function getSubReddit() {
 
     console.log(apiParser.getSubreddit('AskReddit'));
     // apiParser.getHot().map(post => post.title).then(console.log);
     // apiParser.getTop('dogs').map(post => post.title).then(console.log);
-    let arrRes = [];
-    apiParser.getTop('dogs').map(post =>
-        {
+
+    await apiParser.getTop('dogs').map(post => {
             arrRes.push(post);
             // console.log(post.title);
         }
     );
-    console.log("from the arrRes");
     arrRes.forEach(
         redditpost => console.log(redditpost.title)
     );
+
 }
 
-export{printFromParser, getSubReddit}
+export{printFromParser, getSubReddit, arrRes}
