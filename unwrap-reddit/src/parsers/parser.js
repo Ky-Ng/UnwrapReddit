@@ -26,10 +26,14 @@ async function getSubReddit() {
             // console.log(post.title);
         }
     );
+    await apiParser.getTop('dogs', {before: arrRes[arrRes.length-1].id}).map(post => {
+            arrRes.push(post);
+            // console.log(post.title);
+        }
+    );
     arrRes.forEach(
         redditpost => console.log(redditpost.title)
     );
-
 }
 
 export{printFromParser, getSubReddit, arrRes}
