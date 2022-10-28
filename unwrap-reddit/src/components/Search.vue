@@ -64,12 +64,11 @@ export default {
       }, 500)
     },
     async pushTargetSubRedditTitle() {
-      // console.log("bad subreddit name " + isValidSubreddit('aaasdfakjdf s').then(
-      //     (error) => console.log(error)
-      // ));
-      // console.log("is bad subreddit name is Valid reddit blocking?")
-      // safeFetchSubRedditPosts('some invalid subreddit name')
       if (this.search == null) return;
+
+      // format reddit post to have no whitespaces
+      this.search = this.search.replace(/\s/g, "");
+      this.search = this.search.replace("r/", "");
 
       this.disableSearch = true;
       console.log("this.disableSearch = true;");
