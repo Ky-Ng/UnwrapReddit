@@ -69,6 +69,8 @@ export default {
       // ));
       // console.log("is bad subreddit name is Valid reddit blocking?")
       // safeFetchSubRedditPosts('some invalid subreddit name')
+      if (this.search == null) return;
+
       this.disableSearch = true;
       console.log("this.disableSearch = true;");
       await safeFetchSubRedditPosts(this.search);
