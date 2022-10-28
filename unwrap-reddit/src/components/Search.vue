@@ -1,7 +1,7 @@
 <template>
   <v-toolbar
       dark
-      color="teal"
+      color="orange darken-3"
   >
     <v-autocomplete
         @keyup.enter="pushTargetSubRedditTitle"
