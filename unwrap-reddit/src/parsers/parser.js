@@ -52,4 +52,4 @@ function getIsValidSubReddit(){
 }
 
 
-export {printPostTitle, safeFetchSubRedditPosts, getIsValidSubReddit}
+export {printPostTitle, safeFetchSubRedditPosts, getIsValidSubReddit, isValidSubreddit}

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {safeFetchSubRedditPosts, printPostTitle} from "@/parsers/parser";
+import {safeFetchSubRedditPosts, printPostTitle, getIsValidSubReddit, isValidSubreddit} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 
 export default {
@@ -53,9 +53,14 @@ export default {
     }
   },
   watch: {
-    search(val) {
+    async search(val) {
       val && val !== this.select && this.querySelections(val)
       this.formatSearch = this.search == null ? '' : 'r/' + this.search;
+      await isValidSubreddit(val)
+      if (getIsValidSubReddit()){
+        this.subredditTitles.push(val)
+      }
+      console.log("is valid subreddit for " + val + " is " + getIsValidSubReddit())
     },
     select(){
       console.log("select has changed to " + this.select)
@@ -67,7 +72,6 @@ export default {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        console.log("v is " + v);
         this.items = this.subredditTitles.filter(itemArrayElement => {
           return (itemArrayElement || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
         })
