@@ -1,10 +1,9 @@
 <template>
   <v-card color="deep-orange lighten-5">
-    <v-card-title>{{title}}:
+    <v-card-title>{{title}}: {{bestValue}}
     </v-card-title>
-    <v-text>
-      {{value}}
-    </v-text>
+    <v-card-text>
+      See Also: {{runnerUps}}</v-card-text>
   </v-card>
 </template>
 
@@ -13,7 +12,8 @@ export default {
   name: "Highlight",
   data: () => ({
     title: 'Best Time',
-    value: '5pm',
+    bestValue: '5pm',
+    runnerUps: '2pm, 3pm, 9pm',
   }),
 }
 </script>
