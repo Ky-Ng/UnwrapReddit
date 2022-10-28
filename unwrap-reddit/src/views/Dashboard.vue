@@ -1,9 +1,10 @@
 <template>
   <v-main
   class="ps-1 pb-2">
-    <v-row class="pt-3">
-      <redditSearch></redditSearch>
+    <v-row class="mx-1">
+        <redditSearch />
     </v-row>
+
 <!--    <v-row>-->
 <!--      <v-col v-for="i in 3" :key="i">-->
 <!--        <v-card v-if="i==2">-->
@@ -15,13 +16,13 @@
 <!--    </v-row>-->
     <v-row v-for="i in 2" :key="i" class="mx-0">
         <v-col v-for="j in 2" :key="j" cols="6">
-          <BestTime></BestTime>
+          <BestTime />
         </v-col>
     </v-row>
 
     <v-row v-for="a in 2" :key="a" class="mx-0">
       <v-col v-for="b in 2" :key="b" cols="6">
-        <DataGraph></DataGraph>
+        <DataGraph />
       </v-col>
     </v-row>
 

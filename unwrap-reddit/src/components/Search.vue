@@ -5,22 +5,21 @@
   >
 <!--    <v-toolbar-title>State selection</v-toolbar-title>-->
     <v-autocomplete
+        @keyup.enter="pushTargetSubRedditTitle"
         v-model="select"
         :loading="loading"
         :items="items"
         :search-input.sync="search"
         cache-items
         class="mx-4"
-        flat
         hide-no-data
         hide-details
         label="r/"
-        solo-inverted
     ></v-autocomplete>
     {{formatSearch}}
-    <v-btn icon>
-      <v-icon @click="formatSearch">mdi-magnify</v-icon>
-    </v-btn>
+<!--    <v-btn icon>-->
+<!--      <v-icon @click="pushTargetSubRedditTitle">mdi-magnify</v-icon>-->
+<!--    </v-btn>-->
   </v-toolbar>
 </template>
 
@@ -58,6 +57,9 @@ export default {
         this.loading = false
       }, 500)
     },
+    pushTargetSubRedditTitle(){
+      console.log("submitted the subreddit form");
+    }
   },
 }
 </script>
