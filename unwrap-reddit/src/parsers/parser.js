@@ -21,4 +21,23 @@ async function getSubReddit(subRedditName){
     console.log(subreddit);
 }
 
-export{fetchSubRedditPosts, redditPosts, getSubReddit}
+async function safeFetchSubRedditPosts(subRedditName){
+    if (await isValidSubreddit(subRedditName) != false){
+        console.log("From safe fetch, this was a valid post");
+    }
+}
+
+async function isValidSubreddit(subRedditName) {
+    await apiParser.getTop(subRedditName, {time: "year", limit: 1})
+        .then( (validPost) => {
+                console.log("Valid Post " + validPost);
+                return true;
+        })
+        .catch( (invalidPostError) => {
+            console.log("Inalid Post " + invalidPostError);
+            return false;
+        });
+}
+
+
+export{fetchSubRedditPosts, redditPosts, getSubReddit, isValidSubreddit, safeFetchSubRedditPosts}

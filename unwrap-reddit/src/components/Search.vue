@@ -2,8 +2,7 @@
   <v-toolbar
       dark
       color="teal"
-  >
-<!--    <v-toolbar-title>State selection</v-toolbar-title>-->
+      >
     <v-autocomplete
         @keyup.enter="pushTargetSubRedditTitle"
         v-model="select"
@@ -17,13 +16,12 @@
         label="r/"
     ></v-autocomplete>
     {{formatSearch}}
-<!--    <v-btn icon>-->
-<!--      <v-icon @click="pushTargetSubRedditTitle">mdi-magnify</v-icon>-->
-<!--    </v-btn>-->
   </v-toolbar>
 </template>
 
 <script>
+import {safeFetchSubRedditPosts} from "@/parsers/parser";
+
 export default {
   name: "Search",
   data() {
@@ -58,7 +56,9 @@ export default {
       }, 500)
     },
     pushTargetSubRedditTitle(){
-      console.log("submitted the subreddit form");
+
+      safeFetchSubRedditPosts('some invalid subreddit name')
+      safeFetchSubRedditPosts('dogs')
     }
   },
 }
