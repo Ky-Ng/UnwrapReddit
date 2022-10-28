@@ -1,0 +1,4 @@
+class RedditPost {
+    // data members
+
+}

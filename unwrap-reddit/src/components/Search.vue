@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {safeFetchSubRedditPosts, printPostTitle, getIsValidSubReddit, isValidSubreddit} from "@/parsers/parser";
+import {safeFetchSubRedditPosts, getIsValidSubReddit, isValidSubreddit, printPost} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 
 export default {
@@ -76,8 +76,8 @@ export default {
       await safeFetchSubRedditPosts(this.select);
       this.disableSearch = false;
 
-      //todo console log remove
-      printPostTitle();
+      //todo remove
+      printPost();
     }
   },
 }

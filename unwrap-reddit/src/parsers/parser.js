@@ -22,6 +22,10 @@ async function fetchSubRedditPosts(subRedditName) {
 
 // eslint-disable-next-line no-unused-vars
 async function safeFetchSubRedditPosts(subRedditName) {
+    // Reformat subRedditName: cannot have whitespaces or start with r/
+    subRedditName = subRedditName.replace(/\s/g, "");
+    subRedditName = subRedditName.replace("r/", "");
+
     await isValidSubreddit(subRedditName);
     if (isValidReq) {
         await fetchSubRedditPosts(subRedditName);
@@ -33,7 +37,7 @@ async function isValidSubreddit(subRedditName) {
     if (subRedditName == null) isValidReq = false;
     isBusy = true;
 
-    // subRedditName cannot have whitespaces or start with r/
+    // Reformat subRedditName: cannot have whitespaces or start with r/
     subRedditName = subRedditName.replace(/\s/g, "");
     subRedditName = subRedditName.replace("r/", "");
 
@@ -54,9 +58,15 @@ function printPostTitle() {
     });
 }
 
+function printPost(){
+    redditPosts.forEach(post => {
+        console.log(post)
+    });
+}
+
 function getIsValidSubReddit(){
     return isValidReq;
 }
 
 
-export {printPostTitle, getIsValidSubReddit, isValidSubreddit, safeFetchSubRedditPosts}
+export {printPostTitle, getIsValidSubReddit, isValidSubreddit, safeFetchSubRedditPosts, printPost}
