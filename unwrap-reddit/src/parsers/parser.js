@@ -47,5 +47,9 @@ function printPostTitle() {
     });
 }
 
+function getIsValidSubReddit(){
+    return isValidReq;
+}
 
-export {printPostTitle, safeFetchSubRedditPosts}
+
+export {printPostTitle, safeFetchSubRedditPosts, getIsValidSubReddit}

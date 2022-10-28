@@ -6,11 +6,12 @@
       class="mr-3"
       rounded
   >
+<!--    // todo remove
+@keyup.enter="pushTargetSubRedditTitle"
+-->
     <v-autocomplete
         prepend-icon="mdi-magnify"
-        @keyup.enter="pushTargetSubRedditTitle"
         v-model="select"
-        :loading="loading"
         :items="items"
         :search-input.sync="search"
         cache-items
@@ -23,7 +24,7 @@
         solo-inverted
         color="white"
     ></v-autocomplete>
-    {{ formatSearch }}
+<!--    {{ formatSearch }}-->
     <Loader v-bind:show="disableSearch"></Loader>
   </v-toolbar>
 </template>
@@ -40,7 +41,6 @@ export default {
   data() {
     return {
       disableSearch: false,
-      loading: false,
       items: [],
       search: null,
       formatSearch: null,
@@ -57,15 +57,19 @@ export default {
       val && val !== this.select && this.querySelections(val)
       this.formatSearch = this.search == null ? '' : 'r/' + this.search;
     },
-
+    select(){
+      console.log("select has changed to " + this.select)
+      this.pushTargetSubRedditTitle(this.select)
+    }
   },
   methods: {
     querySelections(v) {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.subredditTitles.filter(e => {
-          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        console.log("v is " + v);
+        this.items = this.subredditTitles.filter(itemArrayElement => {
+          return (itemArrayElement || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
         })
         this.loading = false
       }, 500)
