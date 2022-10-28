@@ -5,6 +5,9 @@
       <v-col cols="6">
         <DataGraph></DataGraph>
       </v-col>
+      <v-col cols="3">
+        <BestTime></BestTime>
+      </v-col>
     </v-row>
 
 
@@ -28,12 +31,14 @@
 import {fetchSubRedditPosts, redditPosts, getSubReddit} from "@/parsers/parser";
 import Search from "@/components/Search";
 import Graph from "@/components/Graph";
+import Highlight from "@/components/Highlight";
 
 export default {
   name: "Dashboard",
   components: {
     redditSearch: Search,
     DataGraph: Graph,
+    BestTime: Highlight,
   },
   data: () => ({}),
   methods: {

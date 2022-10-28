@@ -1,17 +1,25 @@
 <template>
-  <v-sparkline
-      :value="value"
-      :gradient="gradient"
-      :smooth="radius || false"
-      :padding="padding"
-      :line-width="width"
-      :stroke-linecap="lineCap"
-      :gradient-direction="gradientDirection"
-      :fill="fill"
-      :type="type"
-      :auto-line-width="autoLineWidth"
-      auto-draw
-  ></v-sparkline>
+  <v-card
+      color="grey lighten-5"
+  >
+    <v-sparkline
+        :value="value"
+        :gradient="gradient"
+        :smooth="radius || false"
+        :padding="padding"
+        :line-width="width"
+        :stroke-linecap="lineCap"
+        :gradient-direction="gradientDirection"
+        :fill="fill"
+        :type="type"
+        :auto-line-width="autoLineWidth"
+        auto-draw
+    >
+      <template v-slot:label="item">
+        {{ item.value }}
+      </template>
+    </v-sparkline>
+  </v-card>
 </template>
 
 <script>
