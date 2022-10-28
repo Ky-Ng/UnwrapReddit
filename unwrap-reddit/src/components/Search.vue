@@ -57,7 +57,7 @@ export default {
     },
     pushTargetSubRedditTitle(){
 
-      safeFetchSubRedditPosts('some invalid subreddit name')
+      // safeFetchSubRedditPosts('some invalid subreddit name')
       safeFetchSubRedditPosts('dogs')
     }
   },

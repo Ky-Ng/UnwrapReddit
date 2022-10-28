@@ -1,5 +1,8 @@
 const snoowrap = require('snoowrap');
 
+let redditPosts = [];
+let isValidReq = null;
+
 const apiParser = new snoowrap({
     userAgent: 'Unwrap Reddit API Parser- Kyle Ng',
     clientId: 'qWhfH3k31_jr6awhEb3TSQ',
@@ -8,8 +11,6 @@ const apiParser = new snoowrap({
     password: 'redditpass'
     // refreshToken: 'put your refresh token here'
 });
-
-let redditPosts = [];
 
 async function fetchSubRedditPosts() {
     redditPosts = await apiParser.getTop('dogs', {time: "year", limit: 500});
@@ -22,7 +23,9 @@ async function getSubReddit(subRedditName){
 }
 
 async function safeFetchSubRedditPosts(subRedditName){
-    if (await isValidSubreddit(subRedditName) != false){
+    await isValidSubreddit(subRedditName)
+    console.log("isValidReq " + isValidReq);
+    if (isValidReq){
         console.log("From safe fetch, this was a valid post");
     }
 }
@@ -31,11 +34,11 @@ async function isValidSubreddit(subRedditName) {
     await apiParser.getTop(subRedditName, {time: "year", limit: 1})
         .then( (validPost) => {
                 console.log("Valid Post " + validPost);
-                return true;
+                isValidReq = true;
         })
         .catch( (invalidPostError) => {
             console.log("Invalid Post " + invalidPostError);
-            return false;
+            isValidReq = false;
         });
 }
 
