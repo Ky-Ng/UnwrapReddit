@@ -27,7 +27,7 @@ import Loader from "@/components/user_input/Loader";
 
 export default {
   name: "Search",
-  components:{
+  components: {
     Loader,
   },
   data() {
@@ -63,6 +63,7 @@ export default {
         this.loading = false
       }, 500)
     },
+
     async pushTargetSubRedditTitle() {
       if (this.search == null) return;
 
@@ -70,12 +71,12 @@ export default {
       this.search = this.search.replace(/\s/g, "");
       this.search = this.search.replace("r/", "");
 
+      // Show Loading Screen while fetching the posts
       this.disableSearch = true;
-      // todo debug remove
-      console.log("this.disableSearch = true;");
       await safeFetchSubRedditPosts(this.search);
       this.disableSearch = false;
-      console.log("this.disableSearch = false;");
+
+      //todo console log remove
       printPostTitle();
     }
   },

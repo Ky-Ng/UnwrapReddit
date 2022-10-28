@@ -1,9 +1,10 @@
 <template>
   <v-card color="deep-orange lighten-5">
-    <v-card-title>{{title}}: {{bestValue}}
+    <v-card-title>{{ title }}: {{ bestValue }}
     </v-card-title>
     <v-card-text>
-      See Also: {{runnerUps}}</v-card-text>
+      See Also: {{ runnerUps }}
+    </v-card-text>
   </v-card>
 </template>
 

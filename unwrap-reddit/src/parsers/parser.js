@@ -48,6 +48,4 @@ function printPostTitle() {
 }
 
 
-
-
 export {printPostTitle, safeFetchSubRedditPosts}

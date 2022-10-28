@@ -28,17 +28,17 @@
 <script>
 export default {
   name: "Loader",
-  data () {
+  data() {
     return {
       niceAdj: ['beautiful', 'wonderful', 'meaningful', 'amazing', 'insightful'],
       randWord: null,
     }
   },
-  props:{
+  props: {
     show: Boolean,
   },
-  watch:{
-    show(){
+  watch: {
+    show() {
       this.randWord = this.niceAdj[Math.floor(Math.random() * this.niceAdj.length)];
     }
   }
