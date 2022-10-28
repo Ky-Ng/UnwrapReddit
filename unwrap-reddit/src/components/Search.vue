@@ -2,7 +2,7 @@
   <v-toolbar
       dark
       color="teal"
-      >
+  >
     <v-autocomplete
         @keyup.enter="pushTargetSubRedditTitle"
         v-model="select"
@@ -14,18 +14,25 @@
         hide-no-data
         hide-details
         label="r/"
+        :disabled=disableSearch
     ></v-autocomplete>
-    {{formatSearch}}
+    {{ formatSearch }}
+    <Loader v-bind:show="disableSearch"></Loader>
   </v-toolbar>
 </template>
 
 <script>
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
+import Loader from "@/components/user_input/Loader";
 
 export default {
   name: "Search",
+  components:{
+    Loader,
+  },
   data() {
     return {
+      disableSearch: false,
       loading: false,
       items: [],
       search: null,
@@ -33,8 +40,8 @@ export default {
       select: null,
       subredditTitles: [
         'dogs',
-          'cats',
-          'games'
+        'cats',
+        'games'
       ],
     }
   },
@@ -43,6 +50,7 @@ export default {
       val && val !== this.select && this.querySelections(val)
       this.formatSearch = this.search == null ? '' : 'r/' + this.search;
     },
+
   },
   methods: {
     querySelections(v) {
@@ -55,10 +63,18 @@ export default {
         this.loading = false
       }, 500)
     },
-    pushTargetSubRedditTitle(){
-
+    async pushTargetSubRedditTitle() {
+      // console.log("bad subreddit name " + isValidSubreddit('aaasdfakjdf s').then(
+      //     (error) => console.log(error)
+      // ));
+      // console.log("is bad subreddit name is Valid reddit blocking?")
       // safeFetchSubRedditPosts('some invalid subreddit name')
-      safeFetchSubRedditPosts('dogs')
+      this.disableSearch = true;
+      console.log("this.disableSearch = true;");
+      await safeFetchSubRedditPosts('a s d dasasdf');
+      // waitWhileParserBusy();
+      this.disableSearch = false;
+      console.log("this.disableSearch = false;");
     }
   },
 }

@@ -4,8 +4,8 @@
 
     <v-row class="mx-1">
         <redditSearch />
-    </v-row>
 
+    </v-row>
     <v-row v-for="i in 2" :key="i" class="mx-0">
         <v-col v-for="j in 2" :key="j" cols="6">
           <BestTime />
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {fetchSubRedditPosts, redditPosts, getSubReddit} from "@/parsers/parser";
+import {fetchSubRedditPosts, redditPosts, getSubReddit, isBusy} from "@/parsers/parser";
 import Search from "@/components/Search";
 import Graph from "@/components/Graph";
 import Highlight from "@/components/Highlight";
@@ -34,7 +34,9 @@ export default {
     DataGraph: Graph,
     BestTime: Highlight,
   },
-  data: () => ({}),
+  data: () => ({
+    isParserBusy: isBusy,
+  }),
   methods: {
     fetchPosts() {
       fetchSubRedditPosts();
