@@ -60,5 +60,11 @@ function waitWhileParserBusy(){
     }
 }
 
+function printPostTitle(){
+    redditPosts.forEach(post => {
+        console.log(post.title)
+    });
+}
 
-export{fetchSubRedditPosts, redditPosts, getSubReddit, isValidSubreddit, safeFetchSubRedditPosts, isBusy, waitWhileParserBusy}
+
+export{printPostTitle, fetchSubRedditPosts, redditPosts, getSubReddit, isValidSubreddit, safeFetchSubRedditPosts, isBusy, waitWhileParserBusy}

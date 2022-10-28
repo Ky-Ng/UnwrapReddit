@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {safeFetchSubRedditPosts} from "@/parsers/parser";
+import {safeFetchSubRedditPosts, printPostTitle} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 
 export default {
@@ -71,10 +71,10 @@ export default {
       // safeFetchSubRedditPosts('some invalid subreddit name')
       this.disableSearch = true;
       console.log("this.disableSearch = true;");
-      await safeFetchSubRedditPosts('a s d dasasdf');
-      // waitWhileParserBusy();
+      await safeFetchSubRedditPosts('dogs');
       this.disableSearch = false;
       console.log("this.disableSearch = false;");
+      printPostTitle();
     }
   },
 }
