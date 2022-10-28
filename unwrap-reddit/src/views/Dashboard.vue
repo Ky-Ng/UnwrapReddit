@@ -4,15 +4,14 @@
     <v-row class="pt-3">
       <redditSearch></redditSearch>
     </v-row>
-    <v-row v-for="n in 2" :key="n" class="mx-0">
-
-        <v-col v-for="n in 2" :key="n" cols="6">
+    <v-row v-for="i in 2" :key="i" class="mx-0">
+        <v-col v-for="j in 2" :key="j" cols="6">
           <BestTime></BestTime>
         </v-col>
     </v-row>
 
-    <v-row v-for="n in 2" :key="n" class="mx-0">
-      <v-col v-for="n in 2" :key="n" cols="6">
+    <v-row v-for="a in 2" :key="a" class="mx-0">
+      <v-col v-for="b in 2" :key="b" cols="6">
         <DataGraph></DataGraph>
       </v-col>
     </v-row>
