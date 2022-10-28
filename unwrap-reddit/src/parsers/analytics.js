@@ -7,7 +7,13 @@ export class Analytics {
     arrayOfPosts;
     numOfTitleLength = [0, 0, 0];
     numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
-    //{monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0}
+    topThreeDays = {
+        1: {nthDay: -2, frequency: -1, stringDay: "No Day"},
+        2: {nthDay: -2, frequency: -1, stringDay: "No Day"},
+        3: {nthDay: -2, frequency: -1, stringDay: "No Day"},
+        similarFrequency: false,
+    }
+    arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', ' Friday', 'Saturday'];
     numAtHours = [];
     topTenWords = {
         0: {word: String, frequency: Number,},
@@ -27,12 +33,44 @@ export class Analytics {
         this.arrayOfPosts.forEach((post) => {
             this.countTotalDayOfWeek(post.created_utc * 1000)
         });
+        this.setTopThreeDays();
+        console.log("top three days " + this.topThreeDays["1"].stringDay + " " +
+            this.topThreeDays["2"].stringDay + " " + this.topThreeDays["3"].stringDay);
         console.log("Day of wekk distribution " + this.numDayOfWeek);
+
     }
 
     countTotalDayOfWeek(time) {
         const date = new Date(time);
         // date.toLocaleTimeString();
-        this.numDayOfWeek[date.getDay()] ++;
+        this.numDayOfWeek[date.getDay()] += 1;
+    }
+
+    setTopThreeDays() {
+        for (let i = 0; i < this.numDayOfWeek.length; i++) {
+            if (this.numDayOfWeek[i] > this.topThreeDays["1"].frequency) {
+                this.setTopDay("1", i);
+            } else if (this.numDayOfWeek[i] > this.topThreeDays["2"].frequency) {
+                this.setTopDay("2", i);
+            } else if (this.numDayOfWeek[i] > this.topThreeDays["3"].frequency) {
+                this.setTopDay("3", i);
+            }
+        }
+        // see if the average frequency is much greater than the top 3 choices
+        // if the difference is small this means the day it was posted does not matter much
+        let averageFrequency = 0;
+        this.numDayOfWeek.forEach((freq) => averageFrequency+= freq);
+        averageFrequency /= 7;
+        console.log("Average Frequency is " + averageFrequency)
+        if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
+            console.log("Difference in Average and Top Frequency is " + Math.abs(averageFrequency - this.topThreeDays["1"].frequency))
+            this.topThreeDays.similarFrequency = true;
+        }
+    }
+
+    setTopDay(ranking, nthDay) {
+        this.topThreeDays[ranking].nthDay = nthDay;
+        this.topThreeDays[ranking].stringDay = this.arrayStringDayOfWeek[nthDay];
+        this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
     }
 }
