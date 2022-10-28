@@ -11,9 +11,7 @@
           dark
           class="pt-4"
       >
-        <v-card-text
-            color="white"
-        >
+        <v-card-text>
           Fetching your <i>{{ randWord }}</i> Reddit Data
           <v-progress-linear
               indeterminate
@@ -32,7 +30,7 @@ export default {
   name: "Loader",
   data () {
     return {
-      niceAdj: ['beautiful', 'wonderful', 'meaningful', 'amazing', 'unwrapping?'],
+      niceAdj: ['beautiful', 'wonderful', 'meaningful', 'amazing', 'insightful'],
       randWord: null,
     }
   },
