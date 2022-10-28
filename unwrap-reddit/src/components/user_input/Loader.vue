@@ -34,14 +34,6 @@ export default {
   props:{
     show: Boolean,
   },
-
-  watch: {
-    dialog (val) {
-      if (!val) return
-
-      setTimeout(() => (this.dialog = false), 4000)
-    },
-  },
 }
 </script>
 
