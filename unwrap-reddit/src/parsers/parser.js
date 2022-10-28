@@ -34,7 +34,7 @@ async function isValidSubreddit(subRedditName) {
                 return true;
         })
         .catch( (invalidPostError) => {
-            console.log("Inalid Post " + invalidPostError);
+            console.log("Invalid Post " + invalidPostError);
             return false;
         });
 }
