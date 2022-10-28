@@ -2,6 +2,7 @@ const snoowrap = require('snoowrap');
 
 let redditPosts = [];
 let isValidReq = null;
+// eslint-disable-next-line no-unused-vars
 let isBusy = null;
 
 const apiParser = new snoowrap({
@@ -27,6 +28,7 @@ async function safeFetchSubRedditPosts(subRedditName) {
 }
 
 async function isValidSubreddit(subRedditName) {
+    if (subRedditName == null) return;
     isBusy = true;
     await apiParser.getTop(subRedditName, {time: "year", limit: 1})
         .then((validPost) => {
