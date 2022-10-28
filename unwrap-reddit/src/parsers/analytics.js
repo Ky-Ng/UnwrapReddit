@@ -31,7 +31,8 @@ export class Analytics {
     constructor(subRedditListing) {
         this.arrayOfPosts = subRedditListing;
         this.arrayOfPosts.forEach((post) => {
-            this.countTotalDayOfWeek(post.created_utc * 1000)
+            this.countTotalTimeOfWeek(post.created_utc * 1000)
+            console.log(post.title)
         });
         this.setTopThreeDays();
         console.log("top three days " + this.topThreeDays["1"].stringDay + " " +
@@ -40,10 +41,14 @@ export class Analytics {
 
     }
 
-    countTotalDayOfWeek(time) {
+    countTotalTimeOfWeek(time) {
         const date = new Date(time);
         // date.toLocaleTimeString();
+        console.log("Day of week " + date.getDay())
         this.numDayOfWeek[date.getDay()] += 1;
+        console.log("get hours " + date.getHours())
+
+        // this.numAtHours
     }
 
     setTopThreeDays() {
