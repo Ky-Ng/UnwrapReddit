@@ -64,7 +64,7 @@ export default {
     },
     select(){
       console.log("select has changed to " + this.select)
-      this.pushTargetSubRedditTitle(this.select)
+      this.runMethod();
     }
   },
   methods: {
@@ -78,17 +78,22 @@ export default {
         this.loading = false
       }, 500)
     },
+    runMethod(){
+      console.log("runnign in the methods function");
+      this.pushTargetSubRedditTitle();
+    },
 
     async pushTargetSubRedditTitle() {
-      if (this.search == null) return;
+      console.log("entered the pushTargetFunction")
+      if (this.select == null) return;
 
       // format reddit post to have no whitespaces
-      this.search = this.search.replace(/\s/g, "");
-      this.search = this.search.replace("r/", "");
+      this.select = this.select.replace(/\s/g, "");
+      this.select = this.select.replace("r/", "");
 
       // Show Loading Screen while fetching the posts
       this.disableSearch = true;
-      await safeFetchSubRedditPosts(this.search);
+      await safeFetchSubRedditPosts(this.select);
       this.disableSearch = false;
 
       //todo console log remove

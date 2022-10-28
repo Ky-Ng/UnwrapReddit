@@ -19,6 +19,8 @@ async function fetchSubRedditPosts(subRedditName) {
     redditPosts = await apiParser.getTop(subRedditName, {time: "year", limit: 100});
 }
 
+
+// eslint-disable-next-line no-unused-vars
 async function safeFetchSubRedditPosts(subRedditName) {
     await isValidSubreddit(subRedditName);
     if (isValidReq) {
@@ -30,6 +32,11 @@ async function safeFetchSubRedditPosts(subRedditName) {
 async function isValidSubreddit(subRedditName) {
     if (subRedditName == null) isValidReq = false;
     isBusy = true;
+
+    // subRedditName cannot have whitespaces or start with r/
+    subRedditName = subRedditName.replace(/\s/g, "");
+    subRedditName = subRedditName.replace("r/", "");
+
     await apiParser.getTop(subRedditName, {time: "year", limit: 1})
         .then((validPost) => {
             console.log("Valid Post " + validPost);
@@ -52,4 +59,4 @@ function getIsValidSubReddit(){
 }
 
 
-export {printPostTitle, safeFetchSubRedditPosts, getIsValidSubReddit, isValidSubreddit}
+export {printPostTitle, getIsValidSubReddit, isValidSubreddit, safeFetchSubRedditPosts}
