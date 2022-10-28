@@ -6,9 +6,6 @@
       class="mr-3"
       rounded
   >
-<!--    // todo remove
-@keyup.enter="pushTargetSubRedditTitle"
--->
     <v-autocomplete
         prepend-icon="mdi-magnify"
         v-model="select"
@@ -24,7 +21,6 @@
         solo-inverted
         color="white"
     ></v-autocomplete>
-<!--    {{ formatSearch }}-->
     <Loader v-bind:show="disableSearch"></Loader>
   </v-toolbar>
 </template>
@@ -43,7 +39,6 @@ export default {
       disableSearch: false,
       items: [],
       search: null,
-      formatSearch: null,
       select: null,
       subredditTitles: [
         'dogs',
@@ -55,42 +50,27 @@ export default {
   watch: {
     async search(val) {
       val && val !== this.select && this.querySelections(val)
-      this.formatSearch = this.search == null ? '' : 'r/' + this.search;
+      // Add any valid typed reddit posts to the list, ensures that pushSelectSubRedditTitle only fetches valid subreddits
       await isValidSubreddit(val)
-      if (getIsValidSubReddit()){
+      if (getIsValidSubReddit()) {
         this.subredditTitles.push(val)
       }
-      console.log("is valid subreddit for " + val + " is " + getIsValidSubReddit())
     },
-    select(){
-      console.log("select has changed to " + this.select)
-      this.runMethod();
+
+    // after the user selects a valid subReddit from the autocomplete
+    select() {
+      this.pushSelectSubRedditTitle()
     }
   },
   methods: {
     querySelections(v) {
       this.loading = true
       // Simulated ajax query
-      setTimeout(() => {
-        this.items = this.subredditTitles.filter(itemArrayElement => {
-          return (itemArrayElement || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-        })
-        this.loading = false
-      }, 500)
-    },
-    runMethod(){
-      console.log("runnign in the methods function");
-      this.pushTargetSubRedditTitle();
+      this.items = this.subredditTitles
+      console.log("search value is " + v);
     },
 
-    async pushTargetSubRedditTitle() {
-      console.log("entered the pushTargetFunction")
-      if (this.select == null) return;
-
-      // format reddit post to have no whitespaces
-      this.select = this.select.replace(/\s/g, "");
-      this.select = this.select.replace("r/", "");
-
+    async pushSelectSubRedditTitle() {
       // Show Loading Screen while fetching the posts
       this.disableSearch = true;
       await safeFetchSubRedditPosts(this.select);
