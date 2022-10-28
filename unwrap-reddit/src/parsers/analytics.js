@@ -1,10 +1,10 @@
 // check if pictures also increase
 
-class Analytics {
+export class Analytics {
     //takes a Listing of 500 subreddit posts and propagates data members
 
     //data members:
-    subRedditListingObj;
+    arrayOfPosts;
     numOfTitleLength = [0, 0, 0];
     numDayOfWeek = {monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0}
     numAtHours = [];
@@ -22,7 +22,17 @@ class Analytics {
     }
 
     constructor(subRedditListing){
-        this.subRedditListingObj = subRedditListing;
-        console.log("subreddit listing object is " + this.subRedditListingObj);
+        this.arrayOfPosts = subRedditListing;
+        console.log("subreddit listing object is " + this.arrayOfPosts);
+        this.arrayOfPosts.forEach((post) => {
+            console.log("title " + post.title);
+            this.countTotalDayOfWeek(post.created_utc)
+        });
+    }
+
+    countTotalDayOfWeek(time){
+        const date = new Date(time);
+        date.toLocaleString();
+        console.log("Date should be " + date);
     }
 }

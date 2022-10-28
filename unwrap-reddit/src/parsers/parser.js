@@ -1,9 +1,11 @@
 const snoowrap = require('snoowrap');
+import {Analytics} from './analytics';
 
 let redditPosts = [];
 let isValidReq = null;
 // eslint-disable-next-line no-unused-vars
 let isBusy = null;
+let Analyzer = null;
 
 const apiParser = new snoowrap({
     userAgent: 'Unwrap Reddit API Parser- Kyle Ng',
@@ -16,7 +18,7 @@ const apiParser = new snoowrap({
 
 async function fetchSubRedditPosts(subRedditName) {
     // todo increase the number of posts to 500
-    redditPosts = await apiParser.getTop(subRedditName, {time: "year", limit: 100});
+    redditPosts = await apiParser.getTop(subRedditName, {time: "year", limit: 10});
 }
 
 
@@ -29,6 +31,8 @@ async function safeFetchSubRedditPosts(subRedditName) {
     await isValidSubreddit(subRedditName);
     if (isValidReq) {
         await fetchSubRedditPosts(subRedditName);
+        Analyzer = new Analytics(redditPosts);
+        console.log("Analyzer is " + Analyzer.arrayOfPosts.length)
     }
     isBusy = false;
 }
