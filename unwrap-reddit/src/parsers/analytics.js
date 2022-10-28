@@ -26,13 +26,17 @@ export class Analytics {
         console.log("subreddit listing object is " + this.arrayOfPosts);
         this.arrayOfPosts.forEach((post) => {
             console.log("title " + post.title);
-            this.countTotalDayOfWeek(post.created_utc)
+            this.countTotalDayOfWeek(post.created_utc * 1000)
         });
+        var s = new Date(1504095567183).toLocaleDateString("en-US")
+// expected output "8/30/2017"
+        console.log("The grebber code example" + s);
     }
 
     countTotalDayOfWeek(time){
         const date = new Date(time);
-        date.toLocaleString();
+        // date.toLocaleTimeString();
+        console.log("day of week " + date.getDay())
         console.log("Date should be " + date);
     }
 }
