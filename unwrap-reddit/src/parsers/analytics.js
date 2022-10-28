@@ -6,7 +6,8 @@ export class Analytics {
     //data members:
     arrayOfPosts;
     numOfTitleLength = [0, 0, 0];
-    numDayOfWeek = {monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0}
+    numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
+    //{monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0}
     numAtHours = [];
     topTenWords = {
         0: {word: String, frequency: Number,},
@@ -21,22 +22,17 @@ export class Analytics {
         9: {word: String, frequency: Number,}
     }
 
-    constructor(subRedditListing){
+    constructor(subRedditListing) {
         this.arrayOfPosts = subRedditListing;
-        console.log("subreddit listing object is " + this.arrayOfPosts);
         this.arrayOfPosts.forEach((post) => {
-            console.log("title " + post.title);
             this.countTotalDayOfWeek(post.created_utc * 1000)
         });
-        var s = new Date(1504095567183).toLocaleDateString("en-US")
-// expected output "8/30/2017"
-        console.log("The grebber code example" + s);
+        console.log("Day of wekk distribution " + this.numDayOfWeek);
     }
 
-    countTotalDayOfWeek(time){
+    countTotalDayOfWeek(time) {
         const date = new Date(time);
         // date.toLocaleTimeString();
-        console.log("day of week " + date.getDay())
-        console.log("Date should be " + date);
+        this.numDayOfWeek[date.getDay()] ++;
     }
 }
