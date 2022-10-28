@@ -71,7 +71,7 @@ export default {
       // safeFetchSubRedditPosts('some invalid subreddit name')
       this.disableSearch = true;
       console.log("this.disableSearch = true;");
-      await safeFetchSubRedditPosts('dogs');
+      await safeFetchSubRedditPosts(this.search);
       this.disableSearch = false;
       console.log("this.disableSearch = false;");
       printPostTitle();
