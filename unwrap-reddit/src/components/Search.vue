@@ -1,9 +1,13 @@
 <template>
   <v-toolbar
       dark
-      color="orange darken-3"
+      color="orange darken-2"
+      flat
+      class="mr-3"
+      rounded
   >
     <v-autocomplete
+        prepend-icon="mdi-magnify"
         @keyup.enter="pushTargetSubRedditTitle"
         v-model="select"
         :loading="loading"
@@ -13,8 +17,11 @@
         class="mx-4"
         hide-no-data
         hide-details
-        label="r/"
+        label="r/search anything"
         :disabled=disableSearch
+        rounded
+        solo-inverted
+        color="white"
     ></v-autocomplete>
     {{ formatSearch }}
     <Loader v-bind:show="disableSearch"></Loader>
