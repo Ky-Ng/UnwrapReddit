@@ -28,7 +28,7 @@ async function safeFetchSubRedditPosts(subRedditName) {
 }
 
 async function isValidSubreddit(subRedditName) {
-    if (subRedditName == null) return;
+    if (subRedditName == null) isValidReq = false;
     isBusy = true;
     await apiParser.getTop(subRedditName, {time: "year", limit: 1})
         .then((validPost) => {
@@ -46,6 +46,8 @@ function printPostTitle() {
         console.log(post.title)
     });
 }
+
+
 
 
 export {printPostTitle, safeFetchSubRedditPosts}

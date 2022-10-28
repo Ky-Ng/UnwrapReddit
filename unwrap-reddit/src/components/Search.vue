@@ -71,6 +71,7 @@ export default {
       this.search = this.search.replace("r/", "");
 
       this.disableSearch = true;
+      // todo debug remove
       console.log("this.disableSearch = true;");
       await safeFetchSubRedditPosts(this.search);
       this.disableSearch = false;
