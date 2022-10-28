@@ -4,6 +4,15 @@
     <v-row class="pt-3">
       <redditSearch></redditSearch>
     </v-row>
+<!--    <v-row>-->
+<!--      <v-col v-for="i in 3" :key="i">-->
+<!--        <v-card v-if="i==2">-->
+<!--          <v-card-title align="end">-->
+<!--            r/FTC-->
+<!--          </v-card-title>-->
+<!--        </v-card>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
     <v-row v-for="i in 2" :key="i" class="mx-0">
         <v-col v-for="j in 2" :key="j" cols="6">
           <BestTime></BestTime>
