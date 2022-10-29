@@ -4,7 +4,7 @@ export class Analytics {
     //takes a Listing of 500 subreddit posts and propagates data members
     static arrayOfPosts;
 
-    // Top Frequency Week Entry
+    // Top Frequency by Day of Week
     static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
     static topThreeDays = {
         title: "Best Day to Post",
@@ -16,7 +16,7 @@ export class Analytics {
     }
     static arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    // use bucket sort method to find top frequency Hour entry
+    // Top Frequency by Hour
     static numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     static topThreeHours = {
         title: "Best Time to Post",
@@ -27,47 +27,7 @@ export class Analytics {
         totalPercentage: -1,
     }
 
-    static setTopThreeHours() {
-        let totalPosts = 0;
-        for (let i = 0; i < 7; i++) {
-            totalPosts += this.numDayOfWeek[i];
-        }
-        console.log(this.numAtHours)
-        for (let i = 0; i < this.numAtHours.length; i++) {
-            if (this.numAtHours[i] > this.topThreeHours["1"].frequency) {
-                this.setTopHour("1", i, totalPosts);
-            } else if (this.numAtHours[i] > this.topThreeHours["2"].frequency) {
-                this.setTopHour("2", i, totalPosts);
-            } else if (this.numAtHours[i] > this.topThreeHours["3"].frequency) {
-                this.setTopHour("3", i, totalPosts);
-            }
-        }
-
-        this.topThreeDays.totalPercentage = this.topThreeDays["1"].percentage
-            + this.topThreeDays["2"].percentage + this.topThreeDays["3"].percentage;
-
-        // if the difference between average and top is low this means the day it was posted does not matter much
-        let averageFrequency = totalPosts / 24;
-
-        if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
-            this.topThreeDays.similarFrequency = true;
-        }
-
-
-    }
-
-    static setTopHour(ranking, hour, totalPosts) {
-        this.topThreeHours[ranking].hour = hour;
-        this.topThreeHours[ranking].string = hour > 12 ? hour - 12 + "pm" : hour + "am";
-        this.topThreeHours[ranking].frequency = this.numAtHours[hour];
-        console.log("totalPosts is " + totalPosts)
-
-        this.topThreeHours[ranking].percentage = this.numAtHours[hour] / totalPosts;
-        console.log("percentage for hour " + hour + " for ranking + " + ranking + " is " + this.topThreeHours[ranking].percentage)
-    }
-
-    // get top most frequent words
-
+    // Top Frequency by Word
     static topTenWords = {
         0: {word: String, frequency: Number,},
         1: {word: String, frequency: Number,},
@@ -81,60 +41,8 @@ export class Analytics {
         9: {word: String, frequency: Number,}
     }
 
-    static fetchData(subRedditListing) {
-        this.subRedditName = subRedditListing[0].title;
-        this.arrayOfPosts = subRedditListing;
-        this.arrayOfPosts.forEach((post) => {
-            this.countTotalTimeOfWeek(post.created_utc * 1000)
-        });
-
-        this.setTopThreeDays();
-        this.setTopThreeHours();
-    }
-
-    static countTotalTimeOfWeek(time) {
-        const date = new Date(time);
-        this.numDayOfWeek[date.getDay()] += 1;
-        this.numAtHours[date.getHours()] += 1;
-    }
-
-    static setTopThreeDays() {
-        let totalPosts = 0;
-        for (let i = 0; i < 7; i++) {
-            totalPosts += this.numDayOfWeek[i];
-        }
-
-        for (let i = 0; i < this.numDayOfWeek.length; i++) {
-            if (this.numDayOfWeek[i] > this.topThreeDays["1"].frequency) {
-                this.setTopDay("1", i, totalPosts);
-            } else if (this.numDayOfWeek[i] > this.topThreeDays["2"].frequency) {
-                this.setTopDay("2", i, totalPosts);
-            } else if (this.numDayOfWeek[i] > this.topThreeDays["3"].frequency) {
-                this.setTopDay("3", i, totalPosts);
-            }
-        }
-
-        this.topThreeDays.totalPercentage = this.topThreeDays["1"].percentage
-            + this.topThreeDays["2"].percentage + this.topThreeDays["3"].percentage;
-
-        // if the difference between average and top is low this means the day it was posted does not matter much
-        let averageFrequency = totalPosts / 7;
-
-        if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
-            this.topThreeDays.similarFrequency = true;
-        }
-    }
-
-    static setTopDay(ranking, nthDay, totalPosts) {
-        this.topThreeDays[ranking].nthDay = nthDay;
-        this.topThreeDays[ranking].string = this.arrayStringDayOfWeek[nthDay];
-        this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
-        this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
-    }
-
     static getAnalytics(){
         return {
-            subRedditName: this.subRedditName,
             weekday: {
                 graphData: {yVal: this.numDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
                 cardData: this.topThreeDays,
@@ -145,4 +53,42 @@ export class Analytics {
             }
         }
     }
+
+    static fetchData(subRedditListing) {
+        this.arrayOfPosts = subRedditListing;
+        this.arrayOfPosts.forEach((post) => {
+            this.countTotalTimeOfWeek(post.created_utc * 1000)
+        });
+
+        this.setTop(this.numDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
+    }
+
+    static countTotalTimeOfWeek(time) {
+        const date = new Date(time);
+        this.numDayOfWeek[date.getDay()] += 1;
+        this.numAtHours[date.getHours()] += 1;
+    }
+
+    static setTop(dataArray, outputObject, totalPosts) {
+        for (let i = 0; i < dataArray.length; i++) {
+            if (dataArray[i] > outputObject["1"].frequency) {
+                this.setRanking("1", i, totalPosts, outputObject);
+            } else if (dataArray[i] > outputObject["2"].frequency) {
+                this.setRanking("2", i, totalPosts, outputObject);
+            } else if (dataArray[i] > outputObject["3"].frequency) {
+                this.setRanking("3", i, totalPosts, outputObject);
+            }
+        }
+
+        outputObject.totalPercentage = outputObject["1"].percentage
+            + outputObject["2"].percentage + outputObject["3"].percentage;
+    }
+
+    static setRanking(ranking, nthDay, totalPosts, outputObject) {
+        outputObject[ranking].nthDay = nthDay;
+        outputObject[ranking].string = this.arrayStringDayOfWeek[nthDay];
+        outputObject[ranking].frequency = this.numDayOfWeek[nthDay];
+        outputObject[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
+    }
+
 }
