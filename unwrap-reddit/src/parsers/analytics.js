@@ -70,6 +70,14 @@ export class Analytics {
 
     static resetData(){
         this.numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
+        this.topThreeDays = {
+            title: "Best Day to Post",
+            1: {index: -2, frequency: -1, percentage: -1, string: "Analytics.arrayStringDayOfWeek[this.topThreeDays[1].index]"},
+            2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            similarFrequency: false,
+            totalPercentage: -1,
+        }
         this.numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     }
 
@@ -82,36 +90,36 @@ export class Analytics {
     static setTop(dataArray, outputObject, totalPosts) {
         for (let i = 0; i < dataArray.length; i++) {
             if(dataArray[i] > outputObject[1].frequency){
-                // shift the other entries down
-                this.shift(outputObject[1], outputObject[2]);
-                // outputObject[2].frequency = outputObject[1].frequency;
-                // outputObject[2].index = outputObject[1].index;
-                // outputObject[2].string = outputObject[1].string;
-                // outputObject[2].percentage = outputObject[1].percentage;
+                this.shiftDown(outputObject[2], outputObject[3]);
+                this.shiftDown(outputObject[1], outputObject[2]);
 
-                console.log("the day " + i + " is first")
                 outputObject[1].frequency = dataArray[i];
                 outputObject[1].index = i;
                 outputObject[1].string = this.arrayStringDayOfWeek[i];
                 outputObject[1].percentage = dataArray[i] / totalPosts;
-
             } else if (dataArray[i] > outputObject[2].frequency){
-                console.log("the day " + i + " is second")
+                this.shiftDown(outputObject[2], outputObject[3])
+
                 outputObject[2].frequency = dataArray[i];
                 outputObject[2].index = i;
-                console.log("outputObject[2].index: " + outputObject[2].index)
                 outputObject[2].string = this.arrayStringDayOfWeek[i];
                 outputObject[2].percentage = dataArray[i] / totalPosts;
+            } else if (dataArray[i] > outputObject[3].frequency){
+                outputObject[3].frequency = dataArray[i];
+                outputObject[3].index = i;
+                outputObject[3].string = this.arrayStringDayOfWeek[i];
+                outputObject[3].percentage = dataArray[i] / totalPosts;
             }
         }
         console.log("first is day " + outputObject[1].index + " with frequency of " + outputObject[1].frequency)
         console.log("second is day " + outputObject[2].index + " with frequency of " + outputObject[2].frequency)
+        console.log("third is day " + outputObject[3].index + " with frequency of " + outputObject[3].frequency)
 
         // outputObject.totalPercentage = outputObject[1].percentage
         //     + outputObject[2].percentage + outputObject[3].percentage;
     }
 
-    static shift(objInput, toObjTarget){
+    static shiftDown(objInput, toObjTarget){
         toObjTarget.frequency = objInput.frequency;
         toObjTarget.index = objInput.index;
         toObjTarget.string = objInput.string;
