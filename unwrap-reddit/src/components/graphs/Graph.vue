@@ -3,7 +3,7 @@
       color="grey lighten-5"
   >
     <v-sparkline
-        :value="value"
+        :value="xAxis"
         :gradient="gradient"
         :smooth="radius || false"
         :padding="padding"
@@ -42,7 +42,7 @@ export default {
     padding: 8,
     lineCap: 'round',
     gradient: gradients[5],
-    value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, -1],
+
     gradientDirection: 'top',
     gradients,
     fill: false,
@@ -51,6 +51,9 @@ export default {
 
     // Data Propagation
   }),
+  props:{
+    xAxis: Array,// [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, -1],
+  }
 
 }
 </script>

@@ -17,7 +17,7 @@
 
       <v-row class="mx-0">
         <v-col cols="6">
-          <DataGraph/>
+          <DataGraph :xAxis="graphData"/>
         </v-col>
         <v-col cols="6">
           <DataGraph/>
@@ -50,6 +50,7 @@ export default {
   data: () => ({
     renderedIn: false,
     topAttribute: null,
+    graphData: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, -1],
   }),
 
   methods: {
