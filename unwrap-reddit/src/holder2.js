@@ -33,7 +33,7 @@ export class Analytics {
             totalPosts += this.numDayOfWeek[i];
         }
 
-        for (let i = 0; i < this.numDayOfWeek.length; i++) {
+        for (let i = 0; i < this.numAtHours.length; i++) {
             if (this.numDayOfWeek[i] > this.topThreeDays["1"].frequency) {
                 this.setTopDay("1", i, totalPosts);
             } else if (this.numDayOfWeek[i] > this.topThreeDays["2"].frequency) {
