@@ -5,28 +5,12 @@ export class Analytics {
     static arrayOfPosts;
 
     // Top Frequency by Day of Week
-    static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
-    static topThreeDays = {
-        title: "Best Day to Post",
-        1: {index: -2, frequency: -1, percentage: -1, string: "Analytics.arrayStringDayOfWeek[this.topThreeDays[1].index]"},
-        2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-        3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-        similarFrequency: false,
-        totalPercentage: -1,
-        toStringArray: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    }
+    static numDayOfWeek;
+    static topThreeDays;
 
     // Top Frequency by Hour
-    static numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    static topThreeHours = {
-        title: "Best Hour to Post",
-        1: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-        2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-        3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-        similarFrequency: false,
-        totalPercentage: -1,
-        toStringArray: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
-    }
+    static numAtHours;
+    static topThreeHours;
 
     // Top Frequency by Word
     static topTenWords = {
@@ -81,6 +65,7 @@ export class Analytics {
             totalPercentage: -1,
             toStringArray: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         }
+
         this.numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         this.topThreeHours = {
             title: "Best Hour to Post",
@@ -89,7 +74,7 @@ export class Analytics {
             3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
             similarFrequency: false,
             totalPercentage: -1,
-            toStringArray: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+            toStringArray: ['12am', '1am', '2am', '3am', '4am', '5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm'],
 
         }
     }
@@ -115,12 +100,14 @@ export class Analytics {
                 this.setRanking(3, outputObject, dataArray, i, totalPosts);
             }
         }
-        console.log("first is " + outputObject[1].index + " with frequency of " + outputObject[1].frequency)
-        console.log("second is " + outputObject[2].index + " with frequency of " + outputObject[2].frequency)
-        console.log("third is " + outputObject[3].index + " with frequency of " + outputObject[3].frequency)
+        // console.log("first is " + outputObject[1].index + " with frequency of " + outputObject[1].frequency)
+        // console.log("second is " + outputObject[2].index + " with frequency of " + outputObject[2].frequency)
+        // console.log("third is " + outputObject[3].index + " with frequency of " + outputObject[3].frequency)
+        // console.log("percentage 1 " + outputObject[1].percentage)
+        // console.log("percentage 2 " + outputObject[2].percentage)
+        // console.log("percentage 3 " + outputObject[3].percentage)
 
-        // outputObject.totalPercentage = outputObject[1].percentage
-        //     + outputObject[2].percentage + outputObject[3].percentage;
+        outputObject.totalPercentage = outputObject[1].percentage + outputObject[2].percentage + outputObject[3].percentage;
     }
 
     static shiftDown(objInput, toObjTarget){
