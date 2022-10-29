@@ -8,6 +8,7 @@ export class Analytics {
     numOfTitleLength = [0, 0, 0];
     static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
     static topThreeDays = {
+        title: "Best Day to Post",
         1: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
         2: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
         3: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
@@ -89,6 +90,8 @@ export class Analytics {
         this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
     static getTopThreeDays(){
-        return this.topThreeDays;
+        return {
+            topDays: this.topThreeDays,
+        }
     }
 }

@@ -37,6 +37,7 @@ import Graph from "@/components/Graph";
 import Highlight from "@/components/Highlight";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
+import {Analytics} from "@/parsers/analytics";
 
 export default {
   name: "Dashboard",
@@ -65,9 +66,10 @@ export default {
     this.renderedIn = true;
     console.log("this.firstRender =" + this.renderedIn);
     // this.disableSearch = false;
-    this.topAttribute = {
-      percentage: -5, 1: {stringDay: "no day"}
-    };
+    // this.topAttribute = {
+    //   percentage: -5, 1: {stringDay: "no day"}
+    // };
+    this.topAttribute = Analytics.getTopThreeDays();
 
   },
 }
