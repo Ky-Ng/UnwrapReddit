@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import Search from "@/components/Search";
+import Search from "@/components/user_input/Search";
 import Graph from "@/components/graphs/Graph";
 import BestDayCard from "@/components/best-attribute-cards/BestDayCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
