@@ -41,11 +41,11 @@
 
 <script>
 import Search from "@/components/user_input/Search";
-import AnalyticsCard from "@/components/best-attribute-cards/AnalyticsCard";
+import AnalyticsCard from "@/components/DataDisplay/best-attribute-cards/AnalyticsCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 import {Analytics} from "@/parsers/analytics";
-import AnalyticsGraph from "@/components/graphs/AnalyticsGraph";
+import AnalyticsGraph from "@/components/DataDisplay/graphs/AnalyticsGraph";
 import SubRedditTitle from "@/components/user_input/SubRedditTitle";
 
 export default {
