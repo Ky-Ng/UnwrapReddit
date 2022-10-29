@@ -14,7 +14,7 @@ export class Analytics {
         similarFrequency: false,
     }
     arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', ' Friday', 'Saturday'];
-    numAtHours = [];
+    numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     topTenWords = {
         0: {word: String, frequency: Number,},
         1: {word: String, frequency: Number,},
@@ -34,10 +34,21 @@ export class Analytics {
             this.countTotalTimeOfWeek(post.created_utc * 1000)
             console.log(post.title)
         });
+
+        // use bucket sort method by Hour
+        // for (let i = 0; i < 24; i++) {
+        //     this.numAtHours[i] = 0;
+        //     // console.log("this.numAtHours[i] = 0;" + this.numAtHours[i])
+        // }
+
         this.setTopThreeDays();
         console.log("top three days " + this.topThreeDays["1"].stringDay + " " +
             this.topThreeDays["2"].stringDay + " " + this.topThreeDays["3"].stringDay);
         console.log("Day of wekk distribution " + this.numDayOfWeek);
+
+        for (let i = 0; i <24 ; i++) {
+            console.log("hour: " + i + "freq: " + this.numAtHours[i])
+        }
 
     }
 
@@ -47,7 +58,11 @@ export class Analytics {
         console.log("Day of week " + date.getDay())
         this.numDayOfWeek[date.getDay()] += 1;
         console.log("get hours " + date.getHours())
-
+        let hour = date.getHours();
+        console.log("hours variable " + hour);
+        console.log(hour)
+        this.numAtHours[hour] += 1;
+        console.log("this.numAtHours[date.getHours()] += 1;" + typeof this.numAtHours[date.getHours()])
         // this.numAtHours
     }
 
@@ -64,7 +79,9 @@ export class Analytics {
         // see if the average frequency is much greater than the top 3 choices
         // if the difference is small this means the day it was posted does not matter much
         let averageFrequency = 0;
-        this.numDayOfWeek.forEach((freq) => averageFrequency+= freq);
+        for (let i = 0; i < 7; i++) {
+            averageFrequency += this.numDayOfWeek[i];
+        }
         averageFrequency /= 7;
         console.log("Average Frequency is " + averageFrequency)
         if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
