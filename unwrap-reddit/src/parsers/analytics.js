@@ -92,23 +92,14 @@ export class Analytics {
             if(dataArray[i] > outputObject[1].frequency){
                 this.shiftDown(outputObject[2], outputObject[3]);
                 this.shiftDown(outputObject[1], outputObject[2]);
+                this.setRanking(1, outputObject, dataArray, i, totalPosts);
 
-                outputObject[1].frequency = dataArray[i];
-                outputObject[1].index = i;
-                outputObject[1].string = this.arrayStringDayOfWeek[i];
-                outputObject[1].percentage = dataArray[i] / totalPosts;
             } else if (dataArray[i] > outputObject[2].frequency){
                 this.shiftDown(outputObject[2], outputObject[3])
+                this.setRanking(2, outputObject, dataArray, i, totalPosts);
 
-                outputObject[2].frequency = dataArray[i];
-                outputObject[2].index = i;
-                outputObject[2].string = this.arrayStringDayOfWeek[i];
-                outputObject[2].percentage = dataArray[i] / totalPosts;
             } else if (dataArray[i] > outputObject[3].frequency){
-                outputObject[3].frequency = dataArray[i];
-                outputObject[3].index = i;
-                outputObject[3].string = this.arrayStringDayOfWeek[i];
-                outputObject[3].percentage = dataArray[i] / totalPosts;
+                this.setRanking(3, outputObject, dataArray, i, totalPosts);
             }
         }
         console.log("first is day " + outputObject[1].index + " with frequency of " + outputObject[1].frequency)
@@ -126,15 +117,11 @@ export class Analytics {
         toObjTarget.percentage = objInput.percentage;
     }
 
-    static setRanking(ranking, nthDay, totalPosts, outputObject) {
-        ranking = 2
-        outputObject[ranking].nthDay = nthDay;
-        outputObject[ranking].string = this.arrayStringDayOfWeek[nthDay];
-        outputObject[ranking].frequency = this.numDayOfWeek[nthDay];
-        outputObject[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
-        console.log("setting " + ranking + " place to " + outputObject[ranking].frequency)
-        // console.log("ranking for " + ranking + ": ")
-        // console.log(outputObject)
+    static setRanking(ranking, outputObject, dataArray, index, totalPosts) {
+        outputObject[ranking].frequency = dataArray[index];
+        outputObject[ranking].index = index;
+        outputObject[ranking].string = this.arrayStringDayOfWeek[index];
+        outputObject[ranking].percentage = dataArray[index] / totalPosts;
     }
 
 }
