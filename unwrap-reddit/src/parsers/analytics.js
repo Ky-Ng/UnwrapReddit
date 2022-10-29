@@ -5,6 +5,7 @@ export class Analytics {
 
     //data members:
     static arrayOfPosts;
+    static subRedditName;
     numOfTitleLength = [0, 0, 0];
     static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
     static topThreeDays = {
@@ -33,6 +34,7 @@ export class Analytics {
     }
 
     static fetchData(subRedditListing) {
+        this.subRedditName = subRedditListing.title;
         this.arrayOfPosts = subRedditListing;
         this.arrayOfPosts.forEach((post) => {
             this.countTotalTimeOfWeek(post.created_utc * 1000)
@@ -54,6 +56,7 @@ export class Analytics {
         const date = new Date(time);
         this.numDayOfWeek[date.getDay()] += 1;
         this.numAtHours[date.getHours()] += 1;
+        console.log(this.numDayOfWeek);
     }
 
     static setTopThreeDays() {
@@ -89,8 +92,10 @@ export class Analytics {
         this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
         this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
+
     static getTopThreeDays(){
         return {
+            // subRedditName:" this.subRedditName,",
             frequencyDays: {frequency: this.numDayOfWeek, days: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
             topDays: this.topThreeDays,
         }

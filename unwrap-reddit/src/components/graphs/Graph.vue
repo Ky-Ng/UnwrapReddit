@@ -3,7 +3,7 @@
       color="grey lighten-5"
   >
     <v-sparkline
-        :value="xAxis.frequency"
+        :value="xAxis.frequencyDays.frequency"
         :gradient="gradient"
         :smooth="radius || false"
         :padding="padding"
@@ -13,13 +13,10 @@
         :fill="fill"
         :type="type"
         :auto-line-width="autoLineWidth"
-        :labels="xAxis.days"
+        :labels="xAxis.frequencyDays.days"
         auto-draw
 
     >
-      <template v-slot:label="item">
-        {{ item.value }}
-      </template>
     </v-sparkline>
   </v-card>
 </template>
@@ -55,8 +52,7 @@ export default {
   }),
   props:{
     xAxis: Object,
-  }
-
+  },
 }
 </script>
 

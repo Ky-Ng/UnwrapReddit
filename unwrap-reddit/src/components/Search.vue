@@ -21,20 +21,14 @@
         solo-inverted
         color="white"
     ></v-autocomplete>
-    <Loader v-bind:show="disableSearch"></Loader>
   </v-toolbar>
 </template>
 
 <script>
-import {safeFetchSubRedditPosts, getIsValidSubReddit, isValidSubreddit} from "@/parsers/parser";
-import Loader from "@/components/user_input/Loader";
-import {Analytics} from "@/parsers/analytics";
+import {getIsValidSubReddit, isValidSubreddit} from "@/parsers/parser";
 
 export default {
   name: "Search",
-  components: {
-    Loader,
-  },
   data() {
     return {
       disableSearch: false,
@@ -72,11 +66,7 @@ export default {
     },
 
     async pushSelectSubRedditTitle() {
-      // Show Loading Screen while fetching the posts
-      this.disableSearch = true;
-      await safeFetchSubRedditPosts(this.select);
-      this.disableSearch = false;
-      this.$emit('update-subreddit', Analytics.getTopThreeDays());
+      this.$emit('update-subreddit', this.select);
     }
   },
 }
