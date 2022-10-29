@@ -23,6 +23,7 @@
 </template>
 
 <script>
+
 const gradients = [
   ['#222'],
   ['#42b3f4'],
@@ -33,6 +34,7 @@ const gradients = [
 ]
 
 export default {
+
   name: "Graph",
   data: () => ({
     width: 4,
@@ -46,7 +48,10 @@ export default {
     fill: false,
     type: 'trend',
     autoLineWidth: false,
+
+    // Data Propagation
   }),
+
 }
 </script>
 

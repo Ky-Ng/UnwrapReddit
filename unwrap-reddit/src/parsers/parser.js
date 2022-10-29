@@ -5,7 +5,6 @@ let redditPosts = [];
 let isValidReq = null;
 // eslint-disable-next-line no-unused-vars
 let isBusy = null;
-let Analyzer = null;
 
 const apiParser = new snoowrap({
     userAgent: 'Unwrap Reddit API Parser- Kyle Ng',
@@ -32,7 +31,8 @@ async function safeFetchSubRedditPosts(subRedditName) {
     await isValidSubreddit(subRedditName);
     if (isValidReq) {
         await fetchSubRedditPosts(subRedditName);
-        Analyzer = new Analytics(redditPosts);
+        // let Analyzer;
+        let Analyzer = new Analytics(redditPosts);
         console.log("Analyzer is " + Analyzer.arrayOfPosts.length)
     }
     isBusy = false;

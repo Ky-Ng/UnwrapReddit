@@ -75,7 +75,6 @@ export default {
       this.disableSearch = true;
       await safeFetchSubRedditPosts(this.select);
       this.disableSearch = false;
-
     }
   },
 }
