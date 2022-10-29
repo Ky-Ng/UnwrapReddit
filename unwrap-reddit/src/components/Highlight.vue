@@ -3,8 +3,18 @@
     <v-card-title>{{ title }}: {{ bestValue }}
     </v-card-title>
     <v-card-text>
-      See Also: {{ runnerUps }}
+      <v-row>
+        <v-col cols="9">
+          See Also: {{ runnerUps }}
+        </v-col>
+        <v-col cols="3">
+          <i>
+          <small>{{ percentage }}% of all posts</small>
+          </i>
+        </v-col>
+      </v-row>
     </v-card-text>
+
   </v-card>
 </template>
 
@@ -15,6 +25,7 @@ export default {
     title: 'Best Time',
     bestValue: '5pm',
     runnerUps: '2pm, 3pm, 9pm',
+    percentage: 3,
   }),
 }
 </script>
