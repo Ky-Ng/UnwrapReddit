@@ -21,7 +21,7 @@
 <script>
 
 export default {
-  name: "Highlight",
+  name: "BestDayCard",
   data: () => ({
     title: 'Best Time',
     bestValue: '5pm',

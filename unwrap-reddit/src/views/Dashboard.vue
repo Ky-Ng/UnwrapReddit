@@ -8,10 +8,10 @@
 
       <v-row class="mx-0">
         <v-col cols="6">
-          <BestTime :top-reddit-attribute="topAttribute"/>
+          <BestDayCard :top-reddit-attribute="topAttribute"/>
         </v-col>
         <v-col cols="6">
-          <BestTime :top-reddit-attribute="topAttribute"/>
+          <BestDayCard :top-reddit-attribute="topAttribute"/>
         </v-col>
       </v-row>
 
@@ -34,7 +34,7 @@
 <script>
 import Search from "@/components/Search";
 import Graph from "@/components/Graph";
-import Highlight from "@/components/Highlight";
+import BestDayCard from "@/components/BestDayCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 import {Analytics} from "@/parsers/analytics";
@@ -44,7 +44,7 @@ export default {
   components: {
     redditSearch: Search,
     DataGraph: Graph,
-    BestTime: Highlight,
+    BestDayCard,
     Loader,
   },
   data: () => ({
