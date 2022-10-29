@@ -56,11 +56,21 @@ export class Analytics {
 
     static fetchData(subRedditListing) {
         this.arrayOfPosts = subRedditListing;
+        console.log(subRedditListing)
+        console.log("Fetching for " + subRedditListing[0].subreddit_name_prefixed)
+        this.resetData();
+
         this.arrayOfPosts.forEach((post) => {
             this.countTotalTimeOfWeek(post.created_utc * 1000)
         });
+        console.log(this.numDayOfWeek)
 
         this.setTop(this.numDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
+    }
+
+    static resetData(){
+        this.numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
+        this.numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     }
 
     static countTotalTimeOfWeek(time) {
@@ -68,20 +78,25 @@ export class Analytics {
         this.numDayOfWeek[date.getDay()] += 1;
         this.numAtHours[date.getHours()] += 1;
     }
-
+// eslint-disable-next-line no-unused-vars
     static setTop(dataArray, outputObject, totalPosts) {
+        // dataArray = [0,0,0,0,1,2,3];//[1, 2, 2, 3, 1, 1, 0]
         for (let i = 0; i < dataArray.length; i++) {
-            if (dataArray[i] > outputObject["1"].frequency) {
-                this.setRanking("1", i, totalPosts, outputObject);
-            } else if (dataArray[i] > outputObject["2"].frequency) {
-                this.setRanking("2", i, totalPosts, outputObject);
-            } else if (dataArray[i] > outputObject["3"].frequency) {
-                this.setRanking("3", i, totalPosts, outputObject);
+            // console.log("the frequency of day " + i + " is " + dataArray[i])
+            if (dataArray[i] > outputObject[1].frequency) {
+                this.setRanking(1, i, totalPosts, outputObject);
+            } else if (dataArray[i] > outputObject[2].frequency) {
+                this.setRanking(2, i, totalPosts, outputObject);
+            } else if (dataArray[i] > outputObject[3].frequency) {
+                this.setRanking(3, i, totalPosts, outputObject);
             }
         }
+        console.log("1st Day " + outputObject[1].nthDay + " frequency is " + outputObject[1].frequency)
+        console.log("2nd Day " + outputObject[2].nthDay + " frequency is " + outputObject[2].frequency)
+        console.log("3rd Day " + outputObject[3].nthDay + " frequency is " + outputObject[3].frequency)
 
-        outputObject.totalPercentage = outputObject["1"].percentage
-            + outputObject["2"].percentage + outputObject["3"].percentage;
+        // outputObject.totalPercentage = outputObject[1].percentage
+        //     + outputObject[2].percentage + outputObject[3].percentage;
     }
 
     static setRanking(ranking, nthDay, totalPosts, outputObject) {
@@ -89,6 +104,8 @@ export class Analytics {
         outputObject[ranking].string = this.arrayStringDayOfWeek[nthDay];
         outputObject[ranking].frequency = this.numDayOfWeek[nthDay];
         outputObject[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
+        // console.log("ranking for " + ranking + ": ")
+        // console.log(outputObject)
     }
 
 }
