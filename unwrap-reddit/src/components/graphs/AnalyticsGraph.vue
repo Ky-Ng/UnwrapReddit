@@ -15,7 +15,6 @@
         :auto-line-width="autoLineWidth"
         :labels="graphData.xLabel"
         auto-draw
-
     >
     </v-sparkline>
   </v-card>
@@ -34,7 +33,7 @@ const gradients = [
 
 export default {
 
-  name: "WeekDayGraph",
+  name: "AnalyticsGraph",
   data: () => ({
     width: 4,
     radius: 10,
