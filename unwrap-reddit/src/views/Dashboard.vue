@@ -37,7 +37,6 @@ import Graph from "@/components/Graph";
 import Highlight from "@/components/Highlight";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
-import {Analytics} from "@/parsers/analytics";
 
 export default {
   name: "Dashboard",

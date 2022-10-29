@@ -19,7 +19,6 @@
 </template>
 
 <script>
-// import {Analytics} from "@/parsers/analytics";
 
 export default {
   name: "Highlight",
