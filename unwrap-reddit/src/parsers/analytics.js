@@ -82,7 +82,13 @@ export class Analytics {
     static setTop(dataArray, outputObject, totalPosts) {
         // dataArray = [0,0,0,0,1,2,3];//[1, 2, 2, 3, 1, 1, 0]
         for (let i = 0; i < dataArray.length; i++) {
-            // console.log("the frequency of day " + i + " is " + dataArray[i])
+            console.log("the frequency of day " + i + " is " + dataArray[i])
+            console.log("1st Day " + outputObject[1].nthDay + " frequency is " + outputObject[1].frequency)
+            console.log("2nd Day " + outputObject[2].nthDay + " frequency is " + outputObject[2].frequency)
+            console.log("3rd Day " + outputObject[3].nthDay + " frequency is " + outputObject[3].frequency)
+            console.log("dataArray[" + i + "] > outputObject[1].frequency " + (dataArray[i] > outputObject[1].frequency))
+            console.log("dataArray[" + i + "] > outputObject[2].frequency " + (dataArray[i] > outputObject[2].frequency))
+            console.log("dataArray[" + i + "] > outputObject[3].frequency " + (dataArray[i] > outputObject[3].frequency))
             if (dataArray[i] > outputObject[1].frequency) {
                 this.setRanking(1, i, totalPosts, outputObject);
             } else if (dataArray[i] > outputObject[2].frequency) {
