@@ -3,7 +3,7 @@
       class="ps-1 pb-2">
     <div v-if="renderedIn">
       <v-row class="mx-1">
-        <redditSearch/>
+        <redditSearch @update-subreddit="onRedditUpdate"></redditSearch>
       </v-row>
 
       <v-row v-for="i in 2" :key="i" class="mx-0">
@@ -22,7 +22,6 @@
     <div v-else>
       <Loader :show="true"></Loader>
     </div>
-
   </v-main>
 </template>
 
@@ -44,8 +43,12 @@ export default {
   data: () => ({
     renderedIn: false,
   }),
-  methods: {},
-  async mounted() {
+  methods: {
+    onRedditUpdate(){
+      console.log("reddit update received in Dashboard")
+    }
+  },
+  async beforeMount() {
     // load in dogs os default
     // this.disableSearch = true;
     console.log("this.firstRender =;" + this.renderedIn);

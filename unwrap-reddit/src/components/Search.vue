@@ -28,6 +28,7 @@
 <script>
 import {safeFetchSubRedditPosts, getIsValidSubReddit, isValidSubreddit} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
+import {Analytics} from "@/parsers/analytics";
 
 export default {
   name: "Search",
@@ -75,6 +76,7 @@ export default {
       this.disableSearch = true;
       await safeFetchSubRedditPosts(this.select);
       this.disableSearch = false;
+      this.$emit('update-subreddit', Analytics.getTopThreeDays());
     }
   },
 }

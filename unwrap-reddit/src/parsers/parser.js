@@ -17,7 +17,7 @@ const apiParser = new snoowrap({
 
 async function fetchSubRedditPosts(subRedditName) {
     // todo increase the number of posts to 500
-    redditPosts = await apiParser.getTop(subRedditName, {time: "year", limit: 100});
+    redditPosts = await apiParser.getTop(subRedditName, {time: "year", limit: 10});
     // redditPosts = await apiParser.getHot(subRedditName, { limit: 10});
 }
 
