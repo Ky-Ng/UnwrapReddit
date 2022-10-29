@@ -84,10 +84,6 @@ export class Analytics {
             if(dataArray[i] > outputObject[1].frequency){
                 // shift the other entries down
                 this.shift(outputObject[1], outputObject[2]);
-                // outputObject[2].frequency = outputObject[1].frequency;
-                // outputObject[2].index = outputObject[1].index;
-                // outputObject[2].string = outputObject[1].string;
-                // outputObject[2].percentage = outputObject[1].percentage;
 
                 console.log("the day " + i + " is first")
                 outputObject[1].frequency = dataArray[i];
