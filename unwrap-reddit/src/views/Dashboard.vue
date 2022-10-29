@@ -34,7 +34,7 @@
 <script>
 import Search from "@/components/Search";
 import Graph from "@/components/Graph";
-import BestDayCard from "@/components/BestDayCard";
+import BestDayCard from "@/components/best-attribute-cards/BestDayCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 import {Analytics} from "@/parsers/analytics";

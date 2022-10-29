@@ -9,7 +9,7 @@
         </v-col>
         <v-col cols="3">
           <i>
-          <small>{{ topRedditAttribute.topDays.totalPercentage * 100 }}% of all posts</small>
+          <small>{{ Math.floor(topRedditAttribute.topDays.totalPercentage * 100) }}% of all posts</small>
           </i>
         </v-col>
       </v-row>
