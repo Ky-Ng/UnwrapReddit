@@ -17,7 +17,7 @@
 
       <v-row class="mx-0">
         <v-col cols="6">
-          <DataGraph :xAxis="graphData"/>
+          <DataGraph :xAxis="topAttribute.frequencyDays.frequency"/>
         </v-col>
         <v-col cols="6">
           <DataGraph/>

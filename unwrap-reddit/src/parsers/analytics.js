@@ -91,6 +91,7 @@ export class Analytics {
     }
     static getTopThreeDays(){
         return {
+            frequencyDays: {days: this.arrayStringDayOfWeek, frequency: this.numDayOfWeek},
             topDays: this.topThreeDays,
         }
     }
