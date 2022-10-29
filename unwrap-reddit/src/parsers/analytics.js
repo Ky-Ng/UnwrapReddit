@@ -85,8 +85,15 @@ export class Analytics {
     static getAnalytics(){
         return {
             subRedditName: this.subRedditName,
-            frequencyDays: {frequency: this.numDayOfWeek, days: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
-            topDays: this.topThreeDays,
+            weekday: {
+                graphData: {yVal: this.numDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
+                cardData: this.topThreeDays,
+            }
         }
+        // return {
+        //     subRedditName: this.subRedditName,
+        //     frequencyDays: {frequency: this.numDayOfWeek, days: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
+        //     topDays: this.topThreeDays,
+        // }
     }
 }

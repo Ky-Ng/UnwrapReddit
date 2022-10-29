@@ -3,7 +3,7 @@
       color="grey lighten-5"
   >
     <v-sparkline
-        :value="xAxis.frequencyDays.frequency"
+        :value="graphData.yVal"
         :gradient="gradient"
         :smooth="radius || false"
         :padding="padding"
@@ -13,7 +13,7 @@
         :fill="fill"
         :type="type"
         :auto-line-width="autoLineWidth"
-        :labels="xAxis.frequencyDays.days"
+        :labels="graphData.xLabel"
         auto-draw
 
     >
@@ -34,7 +34,7 @@ const gradients = [
 
 export default {
 
-  name: "Graph",
+  name: "WeekDayGraph",
   data: () => ({
     width: 4,
     radius: 10,
@@ -51,7 +51,7 @@ export default {
     // Data Propagation
   }),
   props:{
-    xAxis: Object,
+    graphData: Object,
   },
   methods:{
   }

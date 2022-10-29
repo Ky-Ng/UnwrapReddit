@@ -1,15 +1,15 @@
 <template>
   <v-card color="deep-orange lighten-5"  class="rounded-1">
-    <v-card-title>{{ topRedditAttribute.topDays.title }}: {{ topRedditAttribute.topDays["1"].stringDay }}
+    <v-card-title>{{ cardData.title }}: {{ cardData["1"].stringDay }}
     </v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="9">
-          See Also: {{ topRedditAttribute.topDays["2"].stringDay }}, {{ topRedditAttribute.topDays["3"].stringDay }}
+          See Also: {{ cardData["2"].stringDay }}, {{ cardData["3"].stringDay }}
         </v-col>
         <v-col cols="3">
           <i>
-          <small>{{ Math.floor(topRedditAttribute.topDays.totalPercentage * 100) }}% of all posts</small>
+          <small>{{ Math.floor(cardData.totalPercentage * 100) }}% of all posts</small>
           </i>
         </v-col>
       </v-row>
@@ -29,7 +29,7 @@ export default {
     // topRedditAttribute: Analytics.getTopThreeDays(),
   }),
   props:{
-    topRedditAttribute: Object,
+    cardData: Object,
   },
   methods: {
     getSubRedditData(){
