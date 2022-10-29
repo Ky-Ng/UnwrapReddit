@@ -15,7 +15,7 @@
         class="mx-4"
         hide-no-data
         hide-details
-        label="r/dogs"
+        label="r/anything"
         :disabled=disableSearch
         rounded
         solo-inverted
@@ -36,9 +36,6 @@ export default {
       search: null,
       select: null,
       subredditTitles: [
-        'dogs',
-        'cats',
-        'games'
       ],
     }
   },

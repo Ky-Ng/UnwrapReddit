@@ -34,7 +34,7 @@
         <v-col cols="6">
           <v-card color="indigo lighten-2" class="pa-1">
             <BestDayCard :top-reddit-attribute="topAttribute"/>
-            <GraphCard :top-reddit-attribute="topAttribute"/>
+            <DataGraph :xAxis="topAttribute"/>
           </v-card>
         </v-col>
       </v-row>
@@ -62,7 +62,6 @@ import BestDayCard from "@/components/best-attribute-cards/BestDayCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 import {Analytics} from "@/parsers/analytics";
-import GraphCard from "@/components/best-attribute-cards/GraphCard";
 
 export default {
   name: "Dashboard",
@@ -71,26 +70,16 @@ export default {
     DataGraph: Graph,
     BestDayCard,
     Loader,
-    GraphCard,
   },
   data: () => ({
     renderedIn: false,
 
-    topAttribute: {frequencyDays: 'every never day'},
-    graphData: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, -1],
+    topAttribute: null,
+    graphData: null,
   }),
 
   methods: {
     async onRedditUpdate(subRedditName) {
-      // this.renderedIn = false;
-      // setTimeout(() => {
-      //   console.log("Delayed for 1 second.");
-      // }, "1000")
-      // this.topAttribute = Analytics.getTopThreeDays();
-      // this.renderedIn = true;
-      // console.log("updating topAttribute")
-      // console.log("top attribute is ")
-      // console.log(this.topAttribute)
       this.renderedIn = false;
       await safeFetchSubRedditPosts(subRedditName);
       this.renderedIn = true;

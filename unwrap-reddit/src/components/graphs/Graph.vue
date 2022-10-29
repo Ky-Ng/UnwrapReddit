@@ -18,6 +18,7 @@
 
     >
     </v-sparkline>
+    <v-btn @click="test"> Test Button </v-btn>
   </v-card>
 </template>
 
@@ -53,6 +54,12 @@ export default {
   props:{
     xAxis: Object,
   },
+  methods:{
+    test(){
+      console.log("The object in Graph.vue is ")
+      console.log(this.xAxis)
+    }
+  }
 }
 </script>
 
