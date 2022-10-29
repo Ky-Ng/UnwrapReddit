@@ -15,7 +15,7 @@ export class Analytics {
         similarFrequency: false,
         totalPercentage: -1,
     }
-    static arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', ' Friday', 'Saturday'];
+    static arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     // use bucket sort method by Hour
     static numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -91,7 +91,7 @@ export class Analytics {
     }
     static getTopThreeDays(){
         return {
-            frequencyDays: {days: this.arrayStringDayOfWeek, frequency: this.numDayOfWeek},
+            frequencyDays: {frequency: this.numDayOfWeek, days: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
             topDays: this.topThreeDays,
         }
     }

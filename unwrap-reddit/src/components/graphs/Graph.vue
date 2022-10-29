@@ -3,7 +3,7 @@
       color="grey lighten-5"
   >
     <v-sparkline
-        :value="xAxis"
+        :value="xAxis.frequency"
         :gradient="gradient"
         :smooth="radius || false"
         :padding="padding"
@@ -13,6 +13,7 @@
         :fill="fill"
         :type="type"
         :auto-line-width="autoLineWidth"
+        :labels="xAxis.days"
         auto-draw
     >
       <template v-slot:label="item">
@@ -52,7 +53,7 @@ export default {
     // Data Propagation
   }),
   props:{
-    xAxis: Array,// [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, -1],
+    xAxis: Object,
   }
 
 }
