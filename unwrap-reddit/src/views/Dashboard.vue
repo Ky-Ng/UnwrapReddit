@@ -6,20 +6,13 @@
         <redditSearch @update-subreddit="onRedditUpdate($event)"></redditSearch>
       </v-row>
       <v-row>
-<!--        <v-card flat>-->
-<!--          <v-col cols="9"></v-col>-->
-<!--          <v-col cols="">-->
-<!--            <v-card-title class="text-center align-center">-->
-<!--              r/Dogs-->
-<!--            </v-card-title>-->
-<!--          </v-col>-->
-<!--          <v-col cols="3"></v-col>-->
-<!--        </v-card>-->
         <v-col cols="1"></v-col>
         <v-col>
-        <div class="indigo darken-1 text-center rounded" >
-          <span class="white--text">"{{ topAttribute.subredditName }}"</span>
-        </div>
+          <div class="indigo darken-1 text-center rounded">
+            <span class="white--text">
+              Analytics from <strong>r/{{ subRedName }}</strong> subreddit
+            </span>
+          </div>
         </v-col>
         <v-col cols="1"></v-col>
       </v-row>
@@ -44,7 +37,6 @@
 
         </v-col>
         <v-col cols="6">
-          <DataGraph/>
         </v-col>
       </v-row>
     </div>
@@ -73,7 +65,7 @@ export default {
   },
   data: () => ({
     renderedIn: false,
-
+    subRedName: "dogs",
     topAttribute: null,
     graphData: null,
   }),
@@ -84,6 +76,7 @@ export default {
       await safeFetchSubRedditPosts(subRedditName);
       this.renderedIn = true;
       this.topAttribute = Analytics.getTopThreeDays();
+      this.subRedName = subRedditName;
     }
   },
 
