@@ -2,16 +2,16 @@
   <v-main
       class="ps-1 pb-2">
     <div v-if="renderedIn">
+
       <v-row class="mx-1">
         <redditSearch @update-subreddit="onRedditUpdate($event)"></redditSearch>
       </v-row>
+
       <v-row>
         <v-col cols="1"></v-col>
         <v-col>
           <div class="indigo darken-1 text-center rounded">
-            <span class="white--text">
-              Analytics from <strong>r/{{ subRedName }}</strong> subreddit
-            </span>
+            <v-card-title class="white--text ">Analytics from subreddit:_<strong>r/{{ subRedName }}</strong></v-card-title>
           </div>
         </v-col>
         <v-col cols="1"></v-col>
@@ -75,7 +75,7 @@ export default {
       this.renderedIn = false;
       await safeFetchSubRedditPosts(subRedditName);
       this.renderedIn = true;
-      this.topAttribute = Analytics.getTopThreeDays();
+      this.topAttribute = Analytics.getAnalytics();
       this.subRedName = subRedditName;
     }
   },
@@ -84,7 +84,7 @@ export default {
     // load in dogs os default
     await safeFetchSubRedditPosts("dogs");
     this.renderedIn = true;
-    this.topAttribute = Analytics.getTopThreeDays();
+    this.topAttribute = Analytics.getAnalytics();
   },
 }
 </script>

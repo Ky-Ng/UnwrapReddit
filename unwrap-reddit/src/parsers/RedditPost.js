@@ -1,4 +1,0 @@
-class RedditPost {
-    // data members
-
-}

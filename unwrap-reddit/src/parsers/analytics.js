@@ -82,7 +82,7 @@ export class Analytics {
         this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
 
-    static getTopThreeDays(){
+    static getAnalytics(){
         return {
             subRedditName: this.subRedditName,
             frequencyDays: {frequency: this.numDayOfWeek, days: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
