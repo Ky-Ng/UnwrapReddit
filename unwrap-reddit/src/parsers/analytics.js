@@ -2,10 +2,9 @@
 
 export class Analytics {
     //takes a Listing of 500 subreddit posts and propagates data members
-
-    //data members:
     static arrayOfPosts;
-    numOfTitleLength = [0, 0, 0];
+
+    // Top Frequency Week Entry
     static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
     static topThreeDays = {
         title: "Best Day to Post",
@@ -17,8 +16,17 @@ export class Analytics {
     }
     static arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    // use bucket sort method by Hour
+    // use bucket sort method to find top frequency Hour entry
     static numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    static topThreeHours = {
+        title: "Best Time to Post",
+        1: {hour: -2, frequency: -1, percentage: -1, string: "No Day"},
+        2: {hour: -2, frequency: -1, percentage: -1, string: "No Day"},
+        3: {hour: -2, frequency: -1, percentage: -1, string: "No Day"},
+        similarFrequency: false,
+        totalPercentage: -1,
+    }
+
     static topTenWords = {
         0: {word: String, frequency: Number,},
         1: {word: String, frequency: Number,},
