@@ -15,7 +15,7 @@
         class="mx-4"
         hide-no-data
         hide-details
-        label="r/search anything"
+        label="r/dogs"
         :disabled=disableSearch
         rounded
         solo-inverted

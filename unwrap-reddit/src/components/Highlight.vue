@@ -25,7 +25,7 @@ export default {
   name: "Highlight",
   beforeMount() {
     this.topRedditAttribute = {
-      percentage: 5, 1: {stringDay: "today"}
+      percentage: -5, 1: {stringDay: "no day"}
     }
   },
   // updated() {
