@@ -15,6 +15,7 @@
         :auto-line-width="autoLineWidth"
         :labels="xAxis.days"
         auto-draw
+
     >
       <template v-slot:label="item">
         {{ item.value }}

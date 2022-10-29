@@ -1,5 +1,5 @@
 <template>
-  <v-card color="deep-orange lighten-5">
+  <v-card color="deep-orange lighten-5"  class="rounded-1">
     <v-card-title>{{ topRedditAttribute.topDays.title }}: {{ topRedditAttribute.topDays["1"].stringDay }}
     </v-card-title>
     <v-card-text>
@@ -14,7 +14,6 @@
         </v-col>
       </v-row>
     </v-card-text>
-
   </v-card>
 </template>
 

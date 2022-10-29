@@ -8,7 +8,10 @@
 
       <v-row class="mx-0">
         <v-col cols="6">
-          <BestDayCard :top-reddit-attribute="topAttribute"/>
+          <v-card color="indigo lighten-2" class="pa-1">
+            <BestDayCard :top-reddit-attribute="topAttribute"/>
+            <DataGraph :xAxis="topAttribute.frequencyDays"/>
+          </v-card>
         </v-col>
         <v-col cols="6">
           <BestDayCard :top-reddit-attribute="topAttribute"/>
@@ -17,7 +20,7 @@
 
       <v-row class="mx-0">
         <v-col cols="6">
-          <DataGraph :xAxis="topAttribute.frequencyDays"/>
+
         </v-col>
         <v-col cols="6">
           <DataGraph/>
