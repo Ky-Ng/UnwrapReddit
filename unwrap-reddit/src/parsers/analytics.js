@@ -76,9 +76,8 @@ export class Analytics {
 
         // if the difference between average and top is low this means the day it was posted does not matter much
         let averageFrequency = totalPosts / 7;
-        console.log("Average Frequency is " + averageFrequency)
+
         if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
-            console.log("Difference in Average and Top Frequency is " + Math.abs(averageFrequency - this.topThreeDays["1"].frequency))
             this.topThreeDays.similarFrequency = true;
         }
     }
