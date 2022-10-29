@@ -18,13 +18,13 @@
       <v-row class="mx-0">
         <v-col cols="6">
           <v-card color="indigo lighten-2" class="pa-1">
-            <BestDayCard :card-data="subRedditAnalytics.weekday.cardData"/>
+            <AnalyticsCard :card-data="subRedditAnalytics.weekday.cardData"/>
 <!--            <WeekDayGraph :graphData="subRedditAnalytics.weekday"/>-->
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card color="indigo lighten-2" class="pa-1">
-            <BestDayCard :card-data="subRedditAnalytics.weekday.cardData"/>
+            <AnalyticsCard :card-data="subRedditAnalytics.weekday.cardData"/>
 <!--            <WeekDayGraph :xAxis="subRedditAnalytics.weekday"/>-->
           </v-card>
         </v-col>
@@ -47,8 +47,7 @@
 
 <script>
 import Search from "@/components/user_input/Search";
-// import WeekDayGraph from "@/components/graphs/WeekDayGraph";
-import BestDayCard from "@/components/best-attribute-cards/BestDayCard";
+import AnalyticsCard from "@/components/best-attribute-cards/AnalyticsCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 import {Analytics} from "@/parsers/analytics";
@@ -57,8 +56,7 @@ export default {
   name: "Dashboard",
   components: {
     redditSearch: Search,
-    // WeekDayGraph,
-    BestDayCard,
+    AnalyticsCard,
     Loader,
   },
   data: () => ({
