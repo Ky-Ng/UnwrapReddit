@@ -1,5 +1,6 @@
+import {Analytics} from "@/parsers/analytics";
+
 const snoowrap = require('snoowrap');
-import {Analytics} from './analytics';
 
 let redditPosts = [];
 let isValidReq = null;
@@ -32,8 +33,7 @@ async function safeFetchSubRedditPosts(subRedditName) {
     if (isValidReq) {
         await fetchSubRedditPosts(subRedditName);
         // let Analyzer;
-        let Analyzer = new Analytics(redditPosts);
-        console.log("Analyzer is " + Analyzer.arrayOfPosts.length)
+        Analytics.fetchData(redditPosts);
     }
     isBusy = false;
 }

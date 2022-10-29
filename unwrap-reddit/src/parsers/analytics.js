@@ -4,21 +4,21 @@ export class Analytics {
     //takes a Listing of 500 subreddit posts and propagates data members
 
     //data members:
-    arrayOfPosts;
+    static arrayOfPosts;
     numOfTitleLength = [0, 0, 0];
-    numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
-    topThreeDays = {
+    static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
+    static topThreeDays = {
         1: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
         2: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
         3: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
         similarFrequency: false,
         totalPercentage: -1,
     }
-    arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', ' Friday', 'Saturday'];
+    static arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', ' Friday', 'Saturday'];
 
     // use bucket sort method by Hour
-    numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    topTenWords = {
+    static numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    static topTenWords = {
         0: {word: String, frequency: Number,},
         1: {word: String, frequency: Number,},
         2: {word: String, frequency: Number,},
@@ -31,7 +31,7 @@ export class Analytics {
         9: {word: String, frequency: Number,}
     }
 
-    constructor(subRedditListing) {
+    static fetchData(subRedditListing) {
         this.arrayOfPosts = subRedditListing;
         this.arrayOfPosts.forEach((post) => {
             this.countTotalTimeOfWeek(post.created_utc * 1000)
@@ -49,13 +49,13 @@ export class Analytics {
 
     }
 
-    countTotalTimeOfWeek(time) {
+    static countTotalTimeOfWeek(time) {
         const date = new Date(time);
         this.numDayOfWeek[date.getDay()] += 1;
         this.numAtHours[date.getHours()] += 1;
     }
 
-    setTopThreeDays() {
+    static setTopThreeDays() {
         let totalPosts = 0;
         for (let i = 0; i < 7; i++) {
             totalPosts += this.numDayOfWeek[i];
@@ -82,13 +82,13 @@ export class Analytics {
         }
     }
 
-    setTopDay(ranking, nthDay, totalPosts) {
+    static setTopDay(ranking, nthDay, totalPosts) {
         this.topThreeDays[ranking].nthDay = nthDay;
         this.topThreeDays[ranking].stringDay = this.arrayStringDayOfWeek[nthDay];
         this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
         this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
-    getTopThreeDays(){
+    static getTopThreeDays(){
         return this.topThreeDays;
     }
 }
