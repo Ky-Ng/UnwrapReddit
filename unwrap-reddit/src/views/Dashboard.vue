@@ -6,14 +6,20 @@
         <redditSearch @update-subreddit="onRedditUpdate"></redditSearch>
       </v-row>
 
-      <v-row v-for="i in 2" :key="i" class="mx-0">
-        <v-col v-for="j in 2" :key="j" cols="6">
-          <BestTime/>
+      <v-row class="mx-0">
+        <v-col cols="6">
+          <BestTime :top-reddit-attribute="topAttribute"/>
+        </v-col>
+        <v-col cols="6">
+          <BestTime :top-reddit-attribute="topAttribute"/>
         </v-col>
       </v-row>
 
-      <v-row v-for="a in 2" :key="a" class="mx-0">
-        <v-col v-for="b in 2" :key="b" cols="6">
+      <v-row class="mx-0">
+        <v-col cols="6">
+          <DataGraph/>
+        </v-col>
+        <v-col cols="6">
           <DataGraph/>
         </v-col>
       </v-row>
@@ -31,6 +37,7 @@ import Graph from "@/components/Graph";
 import Highlight from "@/components/Highlight";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
+import {Analytics} from "@/parsers/analytics";
 
 export default {
   name: "Dashboard",
@@ -42,12 +49,15 @@ export default {
   },
   data: () => ({
     renderedIn: false,
+    topAttribute: null,
   }),
+
   methods: {
-    onRedditUpdate(){
+    onRedditUpdate() {
       console.log("reddit update received in Dashboard")
     }
   },
+
   async beforeMount() {
     // load in dogs os default
     // this.disableSearch = true;
@@ -56,6 +66,10 @@ export default {
     this.renderedIn = true;
     console.log("this.firstRender =" + this.renderedIn);
     // this.disableSearch = false;
+    this.topAttribute = {
+      percentage: -5, 1: {stringDay: "no day"}
+    };
+
   },
 }
 </script>

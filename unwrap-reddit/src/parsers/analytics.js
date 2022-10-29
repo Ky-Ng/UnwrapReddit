@@ -88,7 +88,7 @@ export class Analytics {
         this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
         this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
-    static getTopThreeDays(){
+    getTopThreeDays(){
         return this.topThreeDays;
     }
 }

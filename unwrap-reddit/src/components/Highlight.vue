@@ -24,9 +24,9 @@
 export default {
   name: "Highlight",
   beforeMount() {
-    this.topRedditAttribute = {
-      percentage: -5, 1: {stringDay: "no day"}
-    }
+    // this.topRedditAttribute = {
+    //   percentage: -5, 1: {stringDay: "no day"}
+    // }
   },
   // updated() {
   //   this.topRedditAttribute = Analytics.getTopThreeDays();
@@ -36,9 +36,12 @@ export default {
     bestValue: '5pm',
     runnerUps: '2pm, 3pm, 9pm',
     percentage: 3,
-    topRedditAttribute: null,
+
     // topRedditAttribute: Analytics.getTopThreeDays(),
   }),
+  props:{
+    topRedditAttribute: Object,
+  },
   methods: {
     getSubRedditData(){
       // this.topRedditAttribute = Analytics.getTopThreeDays();
