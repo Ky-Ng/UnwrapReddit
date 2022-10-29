@@ -8,13 +8,16 @@ export class Analytics {
     numOfTitleLength = [0, 0, 0];
     numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
     topThreeDays = {
-        1: {nthDay: -2, frequency: -1, stringDay: "No Day"},
-        2: {nthDay: -2, frequency: -1, stringDay: "No Day"},
-        3: {nthDay: -2, frequency: -1, stringDay: "No Day"},
+        1: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
+        2: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
+        3: {nthDay: -2, frequency: -1, percentage: -1, stringDay: "No Day"},
         similarFrequency: false,
+        totalPercentage: -1,
     }
     arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', ' Friday', 'Saturday'];
-    numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+    // use bucket sort method by Hour
+    numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     topTenWords = {
         0: {word: String, frequency: Number,},
         1: {word: String, frequency: Number,},
@@ -35,12 +38,6 @@ export class Analytics {
             console.log(post.title)
         });
 
-        // use bucket sort method by Hour
-        // for (let i = 0; i < 24; i++) {
-        //     this.numAtHours[i] = 0;
-        //     // console.log("this.numAtHours[i] = 0;" + this.numAtHours[i])
-        // }
-
         this.setTopThreeDays();
         console.log("top three days " + this.topThreeDays["1"].stringDay + " " +
             this.topThreeDays["2"].stringDay + " " + this.topThreeDays["3"].stringDay);
@@ -54,35 +51,31 @@ export class Analytics {
 
     countTotalTimeOfWeek(time) {
         const date = new Date(time);
-        // date.toLocaleTimeString();
-        console.log("Day of week " + date.getDay())
         this.numDayOfWeek[date.getDay()] += 1;
-        console.log("get hours " + date.getHours())
-        let hour = date.getHours();
-        console.log("hours variable " + hour);
-        console.log(hour)
-        this.numAtHours[hour] += 1;
-        console.log("this.numAtHours[date.getHours()] += 1;" + typeof this.numAtHours[date.getHours()])
-        // this.numAtHours
+        this.numAtHours[date.getHours()] += 1;
     }
 
     setTopThreeDays() {
+        let totalPosts = 0;
+        for (let i = 0; i < 7; i++) {
+            totalPosts += this.numDayOfWeek[i];
+        }
+
         for (let i = 0; i < this.numDayOfWeek.length; i++) {
             if (this.numDayOfWeek[i] > this.topThreeDays["1"].frequency) {
-                this.setTopDay("1", i);
+                this.setTopDay("1", i, totalPosts);
             } else if (this.numDayOfWeek[i] > this.topThreeDays["2"].frequency) {
-                this.setTopDay("2", i);
+                this.setTopDay("2", i, totalPosts);
             } else if (this.numDayOfWeek[i] > this.topThreeDays["3"].frequency) {
-                this.setTopDay("3", i);
+                this.setTopDay("3", i, totalPosts);
             }
         }
-        // see if the average frequency is much greater than the top 3 choices
-        // if the difference is small this means the day it was posted does not matter much
-        let averageFrequency = 0;
-        for (let i = 0; i < 7; i++) {
-            averageFrequency += this.numDayOfWeek[i];
-        }
-        averageFrequency /= 7;
+
+        this.topThreeDays.totalPercentage = this.topThreeDays["1"].percentage
+            + this.topThreeDays["2"].percentage + this.topThreeDays["3"].percentage;
+
+        // if the difference between average and top is low this means the day it was posted does not matter much
+        let averageFrequency = totalPosts / 7;
         console.log("Average Frequency is " + averageFrequency)
         if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
             console.log("Difference in Average and Top Frequency is " + Math.abs(averageFrequency - this.topThreeDays["1"].frequency))
@@ -90,9 +83,10 @@ export class Analytics {
         }
     }
 
-    setTopDay(ranking, nthDay) {
+    setTopDay(ranking, nthDay, totalPosts) {
         this.topThreeDays[ranking].nthDay = nthDay;
         this.topThreeDays[ranking].stringDay = this.arrayStringDayOfWeek[nthDay];
         this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
+        this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
 }
