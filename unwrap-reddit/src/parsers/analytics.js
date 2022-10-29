@@ -32,14 +32,14 @@ export class Analytics {
         for (let i = 0; i < 7; i++) {
             totalPosts += this.numDayOfWeek[i];
         }
-
-        for (let i = 0; i < this.numDayOfWeek.length; i++) {
-            if (this.numDayOfWeek[i] > this.topThreeDays["1"].frequency) {
-                this.setTopDay("1", i, totalPosts);
-            } else if (this.numDayOfWeek[i] > this.topThreeDays["2"].frequency) {
-                this.setTopDay("2", i, totalPosts);
-            } else if (this.numDayOfWeek[i] > this.topThreeDays["3"].frequency) {
-                this.setTopDay("3", i, totalPosts);
+        console.log(this.numAtHours)
+        for (let i = 0; i < this.numAtHours.length; i++) {
+            if (this.numAtHours[i] > this.topThreeHours["1"].frequency) {
+                this.setTopHour("1", i, totalPosts);
+            } else if (this.numAtHours[i] > this.topThreeHours["2"].frequency) {
+                this.setTopHour("2", i, totalPosts);
+            } else if (this.numAtHours[i] > this.topThreeHours["3"].frequency) {
+                this.setTopHour("3", i, totalPosts);
             }
         }
 
@@ -47,18 +47,23 @@ export class Analytics {
             + this.topThreeDays["2"].percentage + this.topThreeDays["3"].percentage;
 
         // if the difference between average and top is low this means the day it was posted does not matter much
-        let averageFrequency = totalPosts / 7;
+        let averageFrequency = totalPosts / 24;
 
         if (Math.abs(averageFrequency - this.topThreeDays["1"].frequency) < 20){
             this.topThreeDays.similarFrequency = true;
         }
+
+
     }
 
-    static setTopHour(ranking, nthDay, totalPosts) {
-        this.topThreeDays[ranking].nthDay = nthDay;
-        this.topThreeDays[ranking].string = this.arrayStringDayOfWeek[nthDay];
-        this.topThreeDays[ranking].frequency = this.numDayOfWeek[nthDay];
-        this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
+    static setTopHour(ranking, hour, totalPosts) {
+        this.topThreeHours[ranking].hour = hour;
+        this.topThreeHours[ranking].string = hour > 12 ? hour - 12 + "pm" : hour + "am";
+        this.topThreeHours[ranking].frequency = this.numAtHours[hour];
+        console.log("totalPosts is " + totalPosts)
+
+        this.topThreeHours[ranking].percentage = this.numAtHours[hour] / totalPosts;
+        console.log("percentage for hour " + hour + " for ranking + " + ranking + " is " + this.topThreeHours[ranking].percentage)
     }
 
     // get top most frequent words
@@ -84,6 +89,7 @@ export class Analytics {
         });
 
         this.setTopThreeDays();
+        this.setTopThreeHours();
     }
 
     static countTotalTimeOfWeek(time) {
