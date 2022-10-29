@@ -24,8 +24,8 @@
         </v-col>
         <v-col cols="6">
           <v-card color="indigo lighten-2" class="pa-1">
-            <AnalyticsCard :card-data="subRedditAnalytics.weekday.cardData"/>
-            <AnalyticsGraph :graphData="subRedditAnalytics.weekday.graphData"/>
+            <AnalyticsCard :card-data="subRedditAnalytics.hours.cardData"/>
+            <AnalyticsGraph :graphData="subRedditAnalytics.hours.graphData"/>
           </v-card>
         </v-col>
       </v-row>

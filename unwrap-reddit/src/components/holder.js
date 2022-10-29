@@ -2,10 +2,9 @@
 
 export class Analytics {
     //takes a Listing of 500 subreddit posts and propagates data members
-
-    //data members:
     static arrayOfPosts;
-    numOfTitleLength = [0, 0, 0];
+
+    // Top Frequency Week Entry
     static numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
     static topThreeDays = {
         title: "Best Day to Post",
@@ -17,8 +16,17 @@ export class Analytics {
     }
     static arrayStringDayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    // use bucket sort method by Hour
+    // use bucket sort method to find top frequency Hour entry
     static numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    static topThreeHours = {
+        title: "Best Time to Post",
+        1: {hour: -2, frequency: -1, percentage: -1, string: "No Day"},
+        2: {hour: -2, frequency: -1, percentage: -1, string: "No Day"},
+        3: {hour: -2, frequency: -1, percentage: -1, string: "No Day"},
+        similarFrequency: false,
+        totalPercentage: -1,
+    }
+
     static topTenWords = {
         0: {word: String, frequency: Number,},
         1: {word: String, frequency: Number,},
@@ -40,11 +48,29 @@ export class Analytics {
         });
 
         this.setTopThreeDays();
+        this.setTopThreeHours();
+        console.log("numAtHours ")
+        console.log(this.numAtHours)
+    }
+
+    static getAnalytics(){
+        return {
+            subRedditName: this.subRedditName,
+            weekday: {
+                graphData: {yVal: this.numDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
+                cardData: this.topThreeDays,
+            },
+            hours: {
+                graphData: {yVal: this.numAtHours, xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']},
+                cardData: this.topThreeHours,
+            }
+        }
     }
 
     static countTotalTimeOfWeek(time) {
         const date = new Date(time);
         this.numDayOfWeek[date.getDay()] += 1;
+        console.log("date.getHours " + date.getHours());
         this.numAtHours[date.getHours()] += 1;
     }
 
@@ -82,17 +108,46 @@ export class Analytics {
         this.topThreeDays[ranking].percentage = this.numDayOfWeek[nthDay] / totalPosts;
     }
 
-    static getAnalytics(){
-        return {
-            subRedditName: this.subRedditName,
-            weekday: {
-                graphData: {yVal: this.numDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
-                cardData: this.topThreeDays,
-            },
-            hours: {
-                graphData: {yVal: this.numAtHours, xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']},
-                cardData: this.topThreeHours,
+
+
+
+
+
+    static setTopThreeHours() {
+        let totalPosts = 0;
+        for (let i = 0; i < 24; i++) {
+            totalPosts += this.numAtHours[i];
+        }
+
+        for (let i = 0; i < this.numAtHours.length; i++) {
+            // console.log("i= " + i + " numAtHours " + this.numAtHours[i]);
+            // console.log("frequency is " + this.topThreeHours["1"].frequency)
+            if (this.numAtHours[i] > this.topThreeHours["1"].frequency) {
+                this.setTopDay("1", i, totalPosts);
+            } else if (this.numAtHours[i] > this.topThreeHours["2"].frequency) {
+                this.setTopDay("2", i, totalPosts);
+            } else if (this.numAtHours[i] > this.topThreeHours["3"].frequency) {
+                this.setTopDay("3", i, totalPosts);
             }
         }
+
+        this.topThreeHours.totalPercentage = this.topThreeHours["1"].percentage
+            + this.topThreeHours["2"].percentage + this.topThreeHours["3"].percentage;
+
+        // if the difference between average and top is low this means the day it was posted does not matter much
+        let averageFrequency = totalPosts / 24;
+
+        if (Math.abs(averageFrequency - this.topThreeHours["1"].frequency) < 20){
+            this.topThreeHours.similarFrequency = true;
+        }
     }
+
+    static setTopHour(ranking, hour, totalPosts) {
+        this.topThreeHours[ranking].hour = hour;
+        this.topThreeHours[ranking].string = hour.toString();
+        this.topThreeHours[ranking].frequency = this.numAtHours[hour];
+        this.topThreeHours[ranking].percentage = this.numAtHours[hour] / totalPosts;
+    }
+
+
 }

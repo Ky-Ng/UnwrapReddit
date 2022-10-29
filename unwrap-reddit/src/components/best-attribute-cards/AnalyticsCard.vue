@@ -1,11 +1,11 @@
 <template>
   <v-card color="deep-orange lighten-5"  class="rounded-1">
-    <v-card-title>{{ cardData.title }}: {{ cardData["1"].stringDay }}
+    <v-card-title>{{ cardData.title }}: {{ cardData["1"].string }}
     </v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="9">
-          See Also: {{ cardData["2"].stringDay }}, {{ cardData["3"].stringDay }}
+          See Also: {{ cardData["2"].string }}, {{ cardData["3"].string }}
         </v-col>
         <v-col cols="3">
           <i>
