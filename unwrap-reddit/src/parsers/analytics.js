@@ -5,33 +5,34 @@ export class Analytics {
     static arrayOfPosts;
 
     // Top Frequency by Day of Week
-    static numDayOfWeek = [];
+    static freqDayOfWeek = [];
     static topThreeDays = Object;
 
     // Top Frequency by Hour
-    static numAtHours = [];
+    static freqOfHour = [];
     static topThreeHours = Object;
 
     //Top Frequency by Title Length
-    static numAtTitleLengths = [];
+    static freqOfTitleLength = [];
     static topThreeTitleLengths = Object;;
 
     // Top Frequency by Word in Title
-    static numAtWord = [];
+    static wordsInTitle = [];
+    static freqOfWord = [];
     static topThreeWords = Object;
 
     static getAnalytics(){
         return {
             weekday: {
-                graphData: {yVal: this.numDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
+                graphData: {yVal: this.freqDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
                 cardData: this.topThreeDays,
             },
             hours: {
-                graphData: {yVal: this.numAtHours, xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']},
+                graphData: {yVal: this.freqOfHour, xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']},
                 cardData: this.topThreeHours,
             },
             titleLength: {
-                graphData: {yVal: this.numAtTitleLengths, xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']},
+                graphData: {yVal: this.freqOfTitleLength, xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']},
                 cardData: this.topThreeTitleLengths,
             }
         }
@@ -45,21 +46,22 @@ export class Analytics {
 
         this.arrayOfPosts.forEach((post) => {
             this.countTotalTimeOfWeek(post.created_utc * 1000);
-            this.countTitleData(post.title);
+            this.countTitleLength(post.title);
+            this.countTitleWord(post.title)
         });
-        console.log(this.numAtTitleLengths)
+        console.log(this.freqOfTitleLength)
 
-        this.setTop(this.numDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
-        this.setTop(this.numAtHours, this.topThreeHours, this.arrayOfPosts.length);
-        this.setTop(this.numAtTitleLengths, this.topThreeTitleLengths, this.arrayOfPosts.length)
+        this.setTop(this.freqDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
+        this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
+        this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
     }
 
     static resetData(){
         // Top Frequency by Day of Week
-        this.numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
+        this.freqDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
         this.topThreeDays = {
             title: "Best Day to Post",
-            1: {index: -2, frequency: -1, percentage: -1, string: "Analytics.arrayStringDayOfWeek[this.topThreeDays[1].index]"},
+            1: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
             2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
             3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
             similarFrequency: false,
@@ -68,12 +70,12 @@ export class Analytics {
         }
 
         // Frequency by Hour
-        this.numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        this.freqOfHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         this.topThreeHours = {
             title: "Best Hour to Post",
-            1: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-            2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-            3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            1: {index: -2, frequency: -1, percentage: -1, string: "No Hour"},
+            2: {index: -2, frequency: -1, percentage: -1, string: "No Hour"},
+            3: {index: -2, frequency: -1, percentage: -1, string: "No Hour"},
             similarFrequency: false,
             totalPercentage: -1,
             toStringArray: ['12am', '1am', '2am', '3am', '4am', '5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm'],
@@ -81,15 +83,15 @@ export class Analytics {
         }
         // Top Frequency by Title Length
         // assume that there is no length title greater than 40 words
-        this.numAtTitleLengths =   [0,0,0,0,0,0,0,0,0,0,
+        this.freqOfTitleLength =   [0,0,0,0,0,0,0,0,0,0,
                                     0,0,0,0,0,0,0,0,0,0,
                                     // 0,0,0,0,0,0,0,0,0,0,
                                     0,0,0,0,0,0,0,0,0,0,];
         this.topThreeTitleLengths = {
             title: "Best Title Length",
-            1: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-            2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-            3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            1: {index: -2, frequency: -1, percentage: -1, string: "No Length"},
+            2: {index: -2, frequency: -1, percentage: -1, string: "No Length"},
+            3: {index: -2, frequency: -1, percentage: -1, string: "No Length"},
             similarFrequency: false,
             totalPercentage: -1,
             toStringArray:  ['1 Word', '2 Words', '3 Words', '4 Words', '5 Words','6 Words', '7 Words','8 Words', '9 Words','10 Words',
@@ -99,26 +101,35 @@ export class Analytics {
         };
 
         // Top Frequency by Word in Title
-        this.numAtWord = [];
+        this.wordsInTitle = [];
+        this.freqOfWord = [];
         this.topThreeWords = {
-            1: {word: String, frequency: Number,},
-            2: {word: String, frequency: Number,},
-            3: {word: String, frequency: Number,},
+            title: "Best Word in Titles",
+            1: {index: -2, frequency: -1, percentage: -1, string: "Analytics.arrayStringDayOfWeek[this.topThreeDays[1].index]"},
+            2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            similarFrequency: false,
+            totalPercentage: -1,
+            toStringArray: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         }
     }
 
     static countTotalTimeOfWeek(time) {
         const date = new Date(time);
-        this.numDayOfWeek[date.getDay()] += 1;
-        this.numAtHours[date.getHours()] += 1;
+        this.freqDayOfWeek[date.getDay()] += 1;
+        this.freqOfHour[date.getHours()] += 1;
     }
 
-    static countTitleData(title){
+    static countTitleLength(title){
         const wordsInTitleArr = title.split(' ');
         const numWordsInTitle = wordsInTitleArr.length;
         // numWordsInTitle - 1 because we don't have titles of 0 words
-        this.numAtTitleLengths[numWordsInTitle-1] += 1;
+        this.freqOfTitleLength[numWordsInTitle-1] += 1;
+    }
 
+    static countTitleWord(title){
+        // const wordsInTitleArr = title.split(' ');
+        console.log(title)
     }
 
 // eslint-disable-next-line no-unused-vars
