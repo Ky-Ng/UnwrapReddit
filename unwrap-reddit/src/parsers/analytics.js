@@ -5,19 +5,20 @@ export class Analytics {
     static arrayOfPosts;
 
     // Top Frequency by Day of Week
-    static numDayOfWeek;
-    static topThreeDays;
+    static numDayOfWeek = [];
+    static topThreeDays = Object;
 
     // Top Frequency by Hour
-    static numAtHours;
-    static topThreeHours;
+    static numAtHours = [];
+    static topThreeHours = Object;
 
     //Top Frequency by Title Length
-    static numAtTitleLengths;
-    static topThreeTitleLengths;
+    static numAtTitleLengths = [];
+    static topThreeTitleLengths = Object;;
 
-    // Top Frequency by Word
-    static topThreeWords;
+    // Top Frequency by Word in Title
+    static numAtWord = [];
+    static topThreeWords = Object;
 
     static getAnalytics(){
         return {
@@ -54,6 +55,7 @@ export class Analytics {
     }
 
     static resetData(){
+        // Top Frequency by Day of Week
         this.numDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
         this.topThreeDays = {
             title: "Best Day to Post",
@@ -65,7 +67,7 @@ export class Analytics {
             toStringArray: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         }
 
-        // Frequency by
+        // Frequency by Hour
         this.numAtHours = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         this.topThreeHours = {
             title: "Best Hour to Post",
@@ -95,7 +97,9 @@ export class Analytics {
                             '21 Words','22 Words', '23 Words', '24 Words', '25 Words','26 Words', '27 Words','28 Words', '29 Words','30 Words',]
                             // '31 Words','32 Words', '33 Words', '34 Words', '35 Words','36 Words', '37 Words','38 Words', '39 Words','40 Words'],
         };
-        // top three words
+
+        // Top Frequency by Word in Title
+        this.numAtWord = [];
         this.topThreeWords = {
             1: {word: String, frequency: Number,},
             2: {word: String, frequency: Number,},
