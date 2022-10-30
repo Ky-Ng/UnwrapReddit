@@ -55,6 +55,9 @@ export class Analytics {
         });
         console.log(this.wordsInTitle)
         console.log(this.freqOfWord)
+        console.log("Most abundant word is ")
+        console.log( this.topThreeWords[1])
+        console.log(this.freqOfTitleLength)
 
         this.setTop(this.freqDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
@@ -129,8 +132,11 @@ export class Analytics {
     static countTitleLength(title){
         const wordsInTitleArr = title.split(' ');
         const numWordsInTitle = wordsInTitleArr.length;
-        // numWordsInTitle - 1 because we don't have titles of 0 words
-        this.freqOfTitleLength[numWordsInTitle-1] += 1;
+        // ensure that the index is valid because will have some edge cases of really long titles
+        if(numWordsInTitle-1 < this.freqOfTitleLength.length){
+            // numWordsInTitle - 1 because we don't have titles of 0 words
+            this.freqOfTitleLength[numWordsInTitle-1] += 1;
+        }
     }
 
     static countTitleWord(title){
@@ -145,14 +151,14 @@ export class Analytics {
             console.log("word in title is " + word)
             if(this.wordsInTitle.includes(word)){
                 const indexOfWord = this.wordsInTitle.indexOf(word);
+                console.log("index of " + word + " is " + indexOfWord)
                 this.freqOfWord[indexOfWord] += 1;
-                console.log("word " + word + " increase frequency to " + this.freqOfWord[indexOfWord])
-
+                // console.log("word " + word + " increase frequency to " + this.freqOfWord[indexOfWord]);
             } else {
                 this.wordsInTitle.push(word)
-                const indexOfWord = this.wordsInTitle.indexOf(word);
+                // const indexOfWord = this.wordsInTitle.indexOf(word);
                 this.freqOfWord.push(1)
-                console.log("Added new word " + word + "frequency of " + this.freqOfWord[indexOfWord])
+                // console.log("Added new word " + word + "frequency of " + this.freqOfWord[indexOfWord])
             }
         })
     }
