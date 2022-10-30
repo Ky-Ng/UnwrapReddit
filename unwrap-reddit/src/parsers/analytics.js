@@ -20,8 +20,9 @@ export class Analytics {
     // Top Frequency by Word in Title
     static wordsInTitle = [];
     static freqOfWord = [];
+    static xAxisWordsInTitle = [];
     static topThreeWords = Object;
-    static fillerWords = ['a', 'and', 'the', 'my', 'i', 'what', 'will', 'was', 'were', 'for', 'your', 'our', 'it', 'as', 'but', 'do', 'are', 'about', 'have', 'so', 'to', 'is', 'of', 'you', 'in', 'with', 'me', "on", "this", "he", "their", "at", "that", "just"]
+    static fillerWords = ['a', 'and', 'the', 'my', 'i', 'what', 'will', 'was', 'were', 'for', 'your', 'our', 'it', 'as', 'but', 'do', 'are', 'about', 'have', 'so', 'to', 'is', 'of', 'you', 'in', 'with', 'me', "on", "this", "he", "their", "at", "that", "just", 'she', 'him']
 
     static getAnalytics() {
         return {
@@ -46,7 +47,11 @@ export class Analytics {
                 cardData: this.topThreeTitleLengths,
             },
             word: {
-                graphData: {yVal: this.freqOfWord, xLabel: this.wordsInTitle, showXLabel: false},
+                graphData: {
+                    yVal: this.freqOfWord,
+                    xLabel: this.xAxisWordsInTitle,
+                    showXLabel: false
+                },
                 cardData: this.topThreeWords,
             }
         }
@@ -54,8 +59,6 @@ export class Analytics {
 
     static fetchData(subRedditListing) {
         this.arrayOfPosts = subRedditListing;
-        console.log(subRedditListing)
-        console.log("Fetching for " + subRedditListing[0].subreddit_name_prefixed)
         this.resetData();
 
         this.arrayOfPosts.forEach((post) => {
@@ -63,32 +66,15 @@ export class Analytics {
             this.countTitleLength(post.title);
             this.countTitleWord(post.title)
         });
-        console.log("before splice")
-        console.log(this.wordsInTitle)
-        console.log(this.freqOfWord)
 
         this.setTop(this.freqDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
 
-        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 17)
-        this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length)
-        console.log("after splice")
-        console.log(this.wordsInTitle)
-        console.log(this.freqOfWord)
-
-        console.log("test splice")
-        console.log("before splice")
-        const arrFreq = [5,6,7,8,9,1,2,3,4,10,11,12]
-        const arrrVals = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
-        console.log(arrFreq)
-        console.log(arrrVals)
-
-        this.thresholdByFrequency(arrFreq, arrrVals, 5);
-        console.log("after splice")
-        console.log(arrFreq)
-        console.log(arrrVals)
-
+        // Most abundant words in titles
+        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 17);
+        this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length);
+        this.createOutputXAxisTitle();
     }
 
     static resetData() {
@@ -137,6 +123,7 @@ export class Analytics {
 
         // Top Frequency by Word in Title
         this.wordsInTitle = [];
+        this.xAxisWordsInTitle = [];
         this.freqOfWord = [];
         this.topThreeWords = {
             title: "Best Word in Titles",
@@ -183,7 +170,6 @@ export class Analytics {
     }
 
     static thresholdByFrequency(arrOfFreq, arrOutput, threshold) {
-        // let indexToRemove = [];
         let length = arrOfFreq.length;
         for (let i = 0; i < length; i++) {
             if (arrOfFreq[i] <= threshold) {
@@ -193,18 +179,8 @@ export class Analytics {
                 arrOutput.splice(i, 1)
                 i--;
                 length--;
-                // indexToRemove.push(i);
             }
         }
-        // console.log("number of indexes to remove " + indexToRemove.length)
-        // console.log(indexToRemove)
-        // let length = indexToRemove.length;
-        // for (let i = 0; i < length; i++) {
-        //     arrOfFreq.splice(indexToRemove[i], 1)
-        //     arrOutput.splice(indexToRemove[i], 1)
-        //     i--;
-        //     length--;
-        // }
     }
 
     static hasWord(arrOfWords, word) {
@@ -222,8 +198,20 @@ export class Analytics {
         return word;
     }
 
+    static createOutputXAxisTitle(){
+        for (let i = 0; i < this.wordsInTitle.length; i++) {
+            if (this.wordsInTitle[i] == this.topThreeWords[1].string ||
+                this.wordsInTitle[i] == this.topThreeWords[2].string ||
+                this.wordsInTitle[i] == this.topThreeWords[3].string){
+                this.xAxisWordsInTitle.push(this.wordsInTitle[i]);
+            } else {
+                this.xAxisWordsInTitle.push(' ')
+            }
+        }
 
-// eslint-disable-next-line no-unused-vars
+    }
+
+
     static setTop(dataArray, outputObject, totalPosts) {
         for (let i = 0; i < dataArray.length; i++) {
             if (dataArray[i] > outputObject[1].frequency) {
@@ -239,15 +227,6 @@ export class Analytics {
                 this.setRanking(3, outputObject, dataArray, i, totalPosts);
             }
         }
-        if (outputObject.title == this.topThreeWords.title) {
-            console.log("first is " + outputObject[1].string + " with frequency of " + outputObject[1].frequency)
-            console.log("second is " + outputObject[2].string + " with frequency of " + outputObject[2].frequency)
-            console.log("third is " + outputObject[3].string + " with frequency of " + outputObject[3].frequency)
-            console.log("percentage 1 " + outputObject[1].percentage)
-            console.log("percentage 2 " + outputObject[2].percentage)
-            console.log("percentage 3 " + outputObject[3].percentage)
-        }
-
         outputObject.totalPercentage = outputObject[1].percentage + outputObject[2].percentage + outputObject[3].percentage;
     }
 
