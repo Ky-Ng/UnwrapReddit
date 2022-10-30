@@ -27,14 +27,17 @@ export class Analytics {
     static getAnalytics() {
         return {
             weekday: {
-                graphData: {yVal: this.freqDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], showXLabel: true},
+                graphData: {
+                    yVal: this.freqDayOfWeek,
+                    xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                    type: "trend"},
                 cardData: this.topThreeDays,
             },
             hours: {
                 graphData: {
                     yVal: this.freqOfHour,
                     xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
-                    showXLabel: true
+                    type: "bar"
                 },
                 cardData: this.topThreeHours,
             },
@@ -42,7 +45,7 @@ export class Analytics {
                 graphData: {
                     yVal: this.freqOfTitleLength,
                     xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
-                    showXLabel: false,
+                    type: "bar",
                 },
                 cardData: this.topThreeTitleLengths,
             },
@@ -50,7 +53,7 @@ export class Analytics {
                 graphData: {
                     yVal: this.freqOfWord,
                     xLabel: this.xAxisWordsInTitle,
-                    showXLabel: false
+                    type: "trend"
                 },
                 cardData: this.topThreeWords,
             }
@@ -173,8 +176,6 @@ export class Analytics {
         let length = arrOfFreq.length;
         for (let i = 0; i < length; i++) {
             if (arrOfFreq[i] <= threshold) {
-                console.log("word to remove: " + arrOutput[i])
-                console.log("frequency: " + arrOfFreq[i]);
                 arrOfFreq.splice(i, 1)
                 arrOutput.splice(i, 1)
                 i--;
@@ -198,11 +199,11 @@ export class Analytics {
         return word;
     }
 
-    static createOutputXAxisTitle(){
+    static createOutputXAxisTitle() {
         for (let i = 0; i < this.wordsInTitle.length; i++) {
             if (this.wordsInTitle[i] == this.topThreeWords[1].string ||
                 this.wordsInTitle[i] == this.topThreeWords[2].string ||
-                this.wordsInTitle[i] == this.topThreeWords[3].string){
+                this.wordsInTitle[i] == this.topThreeWords[3].string) {
                 this.xAxisWordsInTitle.push(this.wordsInTitle[i]);
             } else {
                 this.xAxisWordsInTitle.push(' ')

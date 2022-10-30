@@ -2,7 +2,7 @@
   <v-card
       color="grey lighten-5"
   >
-    <v-sparkline v-if="graphData.showXLabel"
+    <v-sparkline
                  :value="graphData.yVal"
                  :gradient="gradient"
                  :smooth="radius || false"
@@ -11,43 +11,11 @@
                  :stroke-linecap="lineCap"
                  :gradient-direction="gradientDirection"
                  :fill="fill"
-                 :type="type"
+                 :type="graphData.type"
                  :auto-line-width="autoLineWidth"
                  :labels="graphData.xLabel"
                  auto-draw
     ></v-sparkline>
-    <div v-else>
-      <v-sparkline
-          :value="graphData.yVal"
-          type="bar"
-          :gradient="gradient"
-          :smooth="radius || false"
-          :padding="padding"
-          :line-width="width"
-          :stroke-linecap="lineCap"
-          :gradient-direction="gradientDirection"
-          :fill="fill"
-          :auto-line-width="autoLineWidth"
-          :labels="graphData.xLabel"
-          auto-draw
-      >
-<!--        <template>-->
-<!--         {{ defaultXAxisLabel }}-->
-<!--        </template>-->
-      </v-sparkline>
-<!--      <v-card-text>-->
-<!--        <div class="text-h4 font-weight-thin">-->
-<!--          Sales Last 24h-->
-<!--        </div>-->
-<!--      </v-card-text>-->
-
-<!--      <v-row class="text-center">-->
-<!--        {{ defaultXAxisLabel }}-->
-<!--&lt;!&ndash;          <p class="text-center" flat color="grey lighten-0">&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ defaultXAxisLabel }}&ndash;&gt;-->
-<!--&lt;!&ndash;          </p>&ndash;&gt;-->
-<!--      </v-row>-->
-    </div>
   </v-card>
 </template>
 
@@ -75,7 +43,6 @@ export default {
     gradientDirection: 'top',
     gradients,
     fill: false,
-    type: 'trend',
     autoLineWidth: false,
 
     defaultXAxisLabel: "Distribution of Words In Titles"
