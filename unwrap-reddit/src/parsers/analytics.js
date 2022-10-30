@@ -71,7 +71,7 @@ export class Analytics {
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
 
-        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 15)
+        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 17)
         this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length)
         console.log("after splice")
         console.log(this.wordsInTitle)
