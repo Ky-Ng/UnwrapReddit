@@ -39,14 +39,6 @@ export default {
   props: {
     subRedditAnalytics: Object,
   },
-  data: () => ({
-    analyticProperty: [
-      this.subRedditAnalytics.weekday,
-      this.subRedditAnalytics.hours,
-      this.subRedditAnalytics.weekday,
-      this.subRedditAnalytics.hours,
-    ],
-  }),
 }
 </script>
 
