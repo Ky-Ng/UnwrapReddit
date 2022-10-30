@@ -1,10 +1,10 @@
 <template>
-  <v-main class="ps-1 pb-2">
+  <v-main class="ps-1 pb-2 mt-1">
 
     <div v-if="renderedIn">
-      <v-row class="mx-1"><Search @update-subreddit="onRedditUpdate($event)"></Search></v-row>
+      <v-row class="mx-1 pt-3"><Search @update-subreddit="onRedditUpdate($event)"></Search></v-row>
 
-      <SubRedditTitle :sub-reddit-name="subRedName"></SubRedditTitle>
+      <SubRedditTitle :sub-reddit-name="subRedName" class="pt-1 pb-0"></SubRedditTitle>
 
       <DataDisplay :subRedditAnalytics="subRedditAnalytics"></DataDisplay>
     </div>
