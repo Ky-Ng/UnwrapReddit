@@ -1,15 +1,15 @@
 <template>
   <v-card color="deep-orange lighten-5"  class="rounded-1">
-    <v-card-title>{{ cardData.title }}: {{ cardData["1"].string }}
+    <v-card-title>{{ cardData.title }}: <strong>{{ cardData["1"].string }}</strong>
     </v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="9">
-          See Also: {{ cardData["2"].string }}, {{ cardData["3"].string }}
+          See Also: <strong>{{ cardData["2"].string }}</strong>, <strong>{{ cardData["3"].string }}</strong>
         </v-col>
         <v-col cols="3">
           <i>
-          <small>{{ Math.floor(cardData.totalPercentage * 100) }}% of all posts</small>
+          <small><strong>{{ Math.floor(cardData.totalPercentage * 100) }}%</strong> of all posts</small>
           </i>
         </v-col>
       </v-row>
