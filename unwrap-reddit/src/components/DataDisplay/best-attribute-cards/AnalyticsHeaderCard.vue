@@ -20,7 +20,7 @@
 <script>
 
 export default {
-  name: "BestDayCard",
+  name: "AnalyticsHeaderCard",
   data: () => ({
     title: 'Best Time',
     bestValue: '5pm',

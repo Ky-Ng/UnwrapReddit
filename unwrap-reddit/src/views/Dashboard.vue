@@ -12,14 +12,12 @@
       <v-row class="mx-0">
         <v-col cols="6">
           <v-card color="indigo lighten-2" class="pa-1">
-            <AnalyticsCard :card-data="subRedditAnalytics.weekday.cardData"/>
-            <AnalyticsGraph :graphData="subRedditAnalytics.weekday.graphData"/>
+            <DataCard :subRedditAnalyticsCategory="subRedditAnalytics.weekday"></DataCard>
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card color="indigo lighten-2" class="pa-1">
-            <AnalyticsCard :card-data="subRedditAnalytics.hours.cardData"/>
-            <AnalyticsGraph :graphData="subRedditAnalytics.hours.graphData"/>
+            <DataCard :subRedditAnalyticsCategory="subRedditAnalytics.hours"></DataCard>
           </v-card>
         </v-col>
       </v-row>
@@ -41,21 +39,19 @@
 
 <script>
 import Search from "@/components/user_input/Search";
-import AnalyticsCard from "@/components/DataDisplay/best-attribute-cards/AnalyticsCard";
 import {safeFetchSubRedditPosts} from "@/parsers/parser";
 import Loader from "@/components/user_input/Loader";
 import {Analytics} from "@/parsers/analytics";
-import AnalyticsGraph from "@/components/DataDisplay/graphs/AnalyticsGraph";
 import SubRedditTitle from "@/components/user_input/SubRedditTitle";
+import DataCard from "@/components/DataDisplay/DataCard";
 
 export default {
   name: "Dashboard",
   components: {
     Search,
-    AnalyticsCard,
-    AnalyticsGraph,
     Loader,
     SubRedditTitle,
+    DataCard,
   },
   data: () => ({
     renderedIn: false,
