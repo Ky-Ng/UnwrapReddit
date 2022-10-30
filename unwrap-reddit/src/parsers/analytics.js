@@ -14,26 +14,33 @@ export class Analytics {
 
     //Top Frequency by Title Length
     static freqOfTitleLength = [];
-    static topThreeTitleLengths = Object;;
+    static topThreeTitleLengths = Object;
+    ;
 
     // Top Frequency by Word in Title
     static wordsInTitle = [];
     static freqOfWord = [];
     static topThreeWords = Object;
-    static fillerWords = ['a', 'and', 'the', 'my', 'i', 'what', 'will', 'for', 'your', 'it', 'as', 'but', 'so', 'to', 'is', 'of', 'you', 'in', 'with', 'me', "on", "this", "he", "their", "at", "that", "just"]
+    static fillerWords = ['a', 'and', 'the', 'my', 'i', 'what', 'will', 'was', 'were', 'for', 'your', 'our', 'it', 'as', 'but', 'do', 'are', 'about', 'have', 'so', 'to', 'is', 'of', 'you', 'in', 'with', 'me', "on", "this", "he", "their", "at", "that", "just"]
 
-    static getAnalytics(){
+    static getAnalytics() {
         return {
             weekday: {
                 graphData: {yVal: this.freqDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
                 cardData: this.topThreeDays,
             },
             hours: {
-                graphData: {yVal: this.freqOfHour, xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']},
+                graphData: {
+                    yVal: this.freqOfHour,
+                    xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+                },
                 cardData: this.topThreeHours,
             },
             titleLength: {
-                graphData: {yVal: this.freqOfTitleLength, xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']},
+                graphData: {
+                    yVal: this.freqOfTitleLength,
+                    xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+                },
                 cardData: this.topThreeTitleLengths,
             },
             word: {
@@ -54,19 +61,35 @@ export class Analytics {
             this.countTitleLength(post.title);
             this.countTitleWord(post.title)
         });
+        console.log("before splice")
         console.log(this.wordsInTitle)
         console.log(this.freqOfWord)
-        console.log("Most abundant word is ")
-        console.log( this.topThreeWords[1])
-        console.log(this.freqOfTitleLength)
 
         this.setTop(this.freqDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
+
+        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 0)
         this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length)
+        console.log("after splice")
+        console.log(this.wordsInTitle)
+        console.log(this.freqOfWord)
+
+        console.log("test splice")
+        console.log("before splice")
+        const arrFreq = [5,6,7,8,9,1,2,3,4,10,11,12]
+        const arrrVals = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l']
+        console.log(arrFreq)
+        console.log(arrrVals)
+
+        this.thresholdByFrequency(arrFreq, arrrVals, 3);
+        console.log("after splice")
+        console.log(arrFreq)
+        console.log(arrrVals)
+
     }
 
-    static resetData(){
+    static resetData() {
         // Top Frequency by Day of Week
         this.freqDayOfWeek = [0, 0, 0, 0, 0, 0, 0];
         this.topThreeDays = {
@@ -80,7 +103,7 @@ export class Analytics {
         }
 
         // Frequency by Hour
-        this.freqOfHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        this.freqOfHour = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         this.topThreeHours = {
             title: "Best Hour to Post",
             1: {index: -2, frequency: -1, percentage: -1, string: "No Hour"},
@@ -93,10 +116,10 @@ export class Analytics {
         }
         // Top Frequency by Title Length
         // assume that there is no length title greater than 40 words
-        this.freqOfTitleLength =   [0,0,0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0,0,0,
-                                    // 0,0,0,0,0,0,0,0,0,0,
-                                    0,0,0,0,0,0,0,0,0,0,];
+        this.freqOfTitleLength = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            // 0,0,0,0,0,0,0,0,0,0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
         this.topThreeTitleLengths = {
             title: "Best Title Length",
             1: {index: -2, frequency: -1, percentage: -1, string: "No Length"},
@@ -104,10 +127,10 @@ export class Analytics {
             3: {index: -2, frequency: -1, percentage: -1, string: "No Length"},
             similarFrequency: false,
             totalPercentage: -1,
-            toStringArray:  ['1 Word', '2 Words', '3 Words', '4 Words', '5 Words','6 Words', '7 Words','8 Words', '9 Words','10 Words',
-                            '11 Words','12 Words', '13 Words', '14 Words', '15 Words','16 Words', '17 Words','18 Words', '19 Words','20 Words',
-                            '21 Words','22 Words', '23 Words', '24 Words', '25 Words','26 Words', '27 Words','28 Words', '29 Words','30 Words',]
-                            // '31 Words','32 Words', '33 Words', '34 Words', '35 Words','36 Words', '37 Words','38 Words', '39 Words','40 Words'],
+            toStringArray: ['1 Word', '2 Words', '3 Words', '4 Words', '5 Words', '6 Words', '7 Words', '8 Words', '9 Words', '10 Words',
+                '11 Words', '12 Words', '13 Words', '14 Words', '15 Words', '16 Words', '17 Words', '18 Words', '19 Words', '20 Words',
+                '21 Words', '22 Words', '23 Words', '24 Words', '25 Words', '26 Words', '27 Words', '28 Words', '29 Words', '30 Words',]
+            // '31 Words','32 Words', '33 Words', '34 Words', '35 Words','36 Words', '37 Words','38 Words', '39 Words','40 Words'],
         };
 
         // Top Frequency by Word in Title
@@ -130,53 +153,58 @@ export class Analytics {
         this.freqOfHour[date.getHours()] += 1;
     }
 
-    static countTitleLength(title){
+    static countTitleLength(title) {
         const wordsInTitleArr = title.split(' ');
         const numWordsInTitle = wordsInTitleArr.length;
         // ensure that the index is valid because will have some edge cases of really long titles
-        if(numWordsInTitle-1 < this.freqOfTitleLength.length){
+        if (numWordsInTitle - 1 < this.freqOfTitleLength.length) {
             // numWordsInTitle - 1 because we don't have titles of 0 words
-            this.freqOfTitleLength[numWordsInTitle-1] += 1;
+            this.freqOfTitleLength[numWordsInTitle - 1] += 1;
         }
     }
 
-    static countTitleWord(title){
+    static countTitleWord(title) {
         const wordsInTitleArr = title.split(' ');
-        console.log(title)
-        // for (let i = 0; i < wordsInTitleArr.length; i++) {
-        //     if(this.wordsInTitle.indexOf(wordsInTitleArr[]))
-        //         this.wordsInTitle
-        // }
-        wordsInTitleArr.forEach((word) =>{
+        wordsInTitleArr.forEach((word) => {
             word = this.formatWord(word);
-            console.log("word in title is " + word)
             // take out filler words
-            if (this.hasWord(this.fillerWords, word)){
-                console.log("filler word " + word)
-            }
-            else if(this.hasWord(this.wordsInTitle, word)){
-                const indexOfWord = this.wordsInTitle.indexOf(word);
-                console.log("index of " + word + " is " + indexOfWord)
-                this.freqOfWord[indexOfWord] += 1;
-                // console.log("word " + word + " increase frequency to " + this.freqOfWord[indexOfWord]);
-            }
-            else {
-                this.wordsInTitle.push(word)
-                // const indexOfWord = this.wordsInTitle.indexOf(word);
-                this.freqOfWord.push(1)
-                // console.log("Added new word " + word + "frequency of " + this.freqOfWord[indexOfWord])
+            if (!this.hasWord(this.fillerWords, word)) {
+                if (this.hasWord(this.wordsInTitle, word)) {
+                    const indexOfWord = this.wordsInTitle.indexOf(word);
+                    this.freqOfWord[indexOfWord] += 1;
+                } else {
+                    this.wordsInTitle.push(word)
+                    this.freqOfWord.push(1)
+                }
             }
         })
     }
 
-    static hasWord(arrOfWords, word){
-        const wordOffByOne = word.substring(0, word.length-1);
-        console.log("Word off by one " + wordOffByOne);
-        return arrOfWords.includes(word) ||
-                arrOfWords.includes(wordOffByOne)
+    static thresholdByFrequency(arrOfFreq, arrOutput, threshold) {
+        let indexToRemove = [];
+        for (let i = 0; i < arrOfFreq.length; i++) {
+            if (arrOfFreq[i] <= threshold) {
+                indexToRemove.push(i);
+            }
+        }
+        console.log("number of indexes to remove " + indexToRemove.length)
+        console.log(indexToRemove)
+        let length = indexToRemove.length;
+        for (let i = 0; i < length; i++) {
+            arrOfFreq.splice(indexToRemove[i], 1)
+            arrOutput.splice(indexToRemove[i], 1)
+            i--;
+            length--;
+        }
     }
 
-    static formatWord(word){
+    static hasWord(arrOfWords, word) {
+        const wordOffByOne = word.substring(0, word.length - 1);
+        return arrOfWords.includes(word) ||
+            arrOfWords.includes(wordOffByOne)
+    }
+
+    static formatWord(word) {
         word = word.toLowerCase();
         word = word.replace(',', "");
         word = word.replace('.', "");
@@ -185,19 +213,20 @@ export class Analytics {
         return word;
     }
 
+
 // eslint-disable-next-line no-unused-vars
     static setTop(dataArray, outputObject, totalPosts) {
         for (let i = 0; i < dataArray.length; i++) {
-            if(dataArray[i] > outputObject[1].frequency){
+            if (dataArray[i] > outputObject[1].frequency) {
                 this.shiftDown(outputObject[2], outputObject[3]);
                 this.shiftDown(outputObject[1], outputObject[2]);
                 this.setRanking(1, outputObject, dataArray, i, totalPosts);
 
-            } else if (dataArray[i] > outputObject[2].frequency){
+            } else if (dataArray[i] > outputObject[2].frequency) {
                 this.shiftDown(outputObject[2], outputObject[3])
                 this.setRanking(2, outputObject, dataArray, i, totalPosts);
 
-            } else if (dataArray[i] > outputObject[3].frequency){
+            } else if (dataArray[i] > outputObject[3].frequency) {
                 this.setRanking(3, outputObject, dataArray, i, totalPosts);
             }
         }
@@ -213,7 +242,7 @@ export class Analytics {
         outputObject.totalPercentage = outputObject[1].percentage + outputObject[2].percentage + outputObject[3].percentage;
     }
 
-    static shiftDown(objInput, toObjTarget){
+    static shiftDown(objInput, toObjTarget) {
         toObjTarget.frequency = objInput.frequency;
         toObjTarget.index = objInput.index;
         toObjTarget.string = objInput.string;
@@ -223,7 +252,7 @@ export class Analytics {
     static setRanking(ranking, outputObject, dataArray, index, totalPosts) {
         outputObject[ranking].frequency = dataArray[index];
         outputObject[ranking].index = index;
-        if (outputObject.title == this.topThreeWords.title){
+        if (outputObject.title == this.topThreeWords.title) {
             outputObject[ranking].string = this.wordsInTitle[index];
         } else {
             outputObject[ranking].string = outputObject.toStringArray[index];
