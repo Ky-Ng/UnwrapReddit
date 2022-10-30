@@ -20,6 +20,7 @@ export class Analytics {
     static wordsInTitle = [];
     static freqOfWord = [];
     static topThreeWords = Object;
+    static fillerWords = ['a', 'and', 'the', 'my', 'i', 'what', 'will', 'for', 'your', 'it', 'as', 'but', 'so', 'to', 'is', 'of', 'you', 'in', 'with', 'me', "on", "this", "he", "their", "at", "that", "just"]
 
     static getAnalytics(){
         return {
@@ -147,20 +148,41 @@ export class Analytics {
         //         this.wordsInTitle
         // }
         wordsInTitleArr.forEach((word) =>{
-            word = word.toLowerCase();
+            word = this.formatWord(word);
             console.log("word in title is " + word)
-            if(this.wordsInTitle.includes(word)){
+            // take out filler words
+            if (this.hasWord(this.fillerWords, word)){
+                console.log("filler word " + word)
+            }
+            else if(this.hasWord(this.wordsInTitle, word)){
                 const indexOfWord = this.wordsInTitle.indexOf(word);
                 console.log("index of " + word + " is " + indexOfWord)
                 this.freqOfWord[indexOfWord] += 1;
                 // console.log("word " + word + " increase frequency to " + this.freqOfWord[indexOfWord]);
-            } else {
+            }
+            else {
                 this.wordsInTitle.push(word)
                 // const indexOfWord = this.wordsInTitle.indexOf(word);
                 this.freqOfWord.push(1)
                 // console.log("Added new word " + word + "frequency of " + this.freqOfWord[indexOfWord])
             }
         })
+    }
+
+    static hasWord(arrOfWords, word){
+        const wordOffByOne = word.substring(0, word.length-1);
+        console.log("Word off by one " + wordOffByOne);
+        return arrOfWords.includes(word) ||
+                arrOfWords.includes(wordOffByOne)
+    }
+
+    static formatWord(word){
+        word = word.toLowerCase();
+        word = word.replace(',', "");
+        word = word.replace('.', "");
+        word = word.replace('!', "");
+        word = word.replace('/', "");
+        return word;
     }
 
 // eslint-disable-next-line no-unused-vars
@@ -179,12 +201,14 @@ export class Analytics {
                 this.setRanking(3, outputObject, dataArray, i, totalPosts);
             }
         }
-        // console.log("first is " + outputObject[1].index + " with frequency of " + outputObject[1].frequency)
-        // console.log("second is " + outputObject[2].index + " with frequency of " + outputObject[2].frequency)
-        // console.log("third is " + outputObject[3].index + " with frequency of " + outputObject[3].frequency)
-        // console.log("percentage 1 " + outputObject[1].percentage)
-        // console.log("percentage 2 " + outputObject[2].percentage)
-        // console.log("percentage 3 " + outputObject[3].percentage)
+        if (outputObject.title == this.topThreeWords.title) {
+            console.log("first is " + outputObject[1].string + " with frequency of " + outputObject[1].frequency)
+            console.log("second is " + outputObject[2].string + " with frequency of " + outputObject[2].frequency)
+            console.log("third is " + outputObject[3].string + " with frequency of " + outputObject[3].frequency)
+            console.log("percentage 1 " + outputObject[1].percentage)
+            console.log("percentage 2 " + outputObject[2].percentage)
+            console.log("percentage 3 " + outputObject[3].percentage)
+        }
 
         outputObject.totalPercentage = outputObject[1].percentage + outputObject[2].percentage + outputObject[3].percentage;
     }
