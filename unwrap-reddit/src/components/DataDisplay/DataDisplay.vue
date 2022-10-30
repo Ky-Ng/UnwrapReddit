@@ -16,7 +16,7 @@
     <v-row class="mx-0">
       <v-col cols="6">
         <v-card color="indigo lighten-2" class="pa-1">
-          <DataCard :subRedditAnalyticsCategory="subRedditAnalytics.weekday"></DataCard>
+          <DataCard :subRedditAnalyticsCategory="subRedditAnalytics.titleLength"></DataCard>
         </v-card>
       </v-col>
       <v-col cols="6">
