@@ -21,7 +21,7 @@
       </v-col>
       <v-col cols="6">
         <v-card color="indigo lighten-2" class="pa-1">
-          <DataCard :subRedditAnalyticsCategory="subRedditAnalytics.hours"></DataCard>
+          <DataCard :subRedditAnalyticsCategory="subRedditAnalytics.word"></DataCard>
         </v-card>
       </v-col>
     </v-row>

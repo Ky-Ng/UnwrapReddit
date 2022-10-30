@@ -34,6 +34,10 @@ export class Analytics {
             titleLength: {
                 graphData: {yVal: this.freqOfTitleLength, xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']},
                 cardData: this.topThreeTitleLengths,
+            },
+            word: {
+                graphData: {yVal: this.freqOfWord, xLabel: this.wordsInTitle},
+                cardData: this.topThreeWords,
             }
         }
     }
@@ -49,11 +53,13 @@ export class Analytics {
             this.countTitleLength(post.title);
             this.countTitleWord(post.title)
         });
-        console.log(this.freqOfTitleLength)
+        console.log(this.wordsInTitle)
+        console.log(this.freqOfWord)
 
         this.setTop(this.freqDayOfWeek, this.topThreeDays, this.arrayOfPosts.length);
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
+        this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length)
     }
 
     static resetData(){
@@ -105,9 +111,9 @@ export class Analytics {
         this.freqOfWord = [];
         this.topThreeWords = {
             title: "Best Word in Titles",
-            1: {index: -2, frequency: -1, percentage: -1, string: "Analytics.arrayStringDayOfWeek[this.topThreeDays[1].index]"},
-            2: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
-            3: {index: -2, frequency: -1, percentage: -1, string: "No Day"},
+            1: {index: -2, frequency: -1, percentage: -1, string: "No Word"},
+            2: {index: -2, frequency: -1, percentage: -1, string: "No Word"},
+            3: {index: -2, frequency: -1, percentage: -1, string: "No Word"},
             similarFrequency: false,
             totalPercentage: -1,
             toStringArray: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -128,8 +134,27 @@ export class Analytics {
     }
 
     static countTitleWord(title){
-        // const wordsInTitleArr = title.split(' ');
+        const wordsInTitleArr = title.split(' ');
         console.log(title)
+        // for (let i = 0; i < wordsInTitleArr.length; i++) {
+        //     if(this.wordsInTitle.indexOf(wordsInTitleArr[]))
+        //         this.wordsInTitle
+        // }
+        wordsInTitleArr.forEach((word) =>{
+            word = word.toLowerCase();
+            console.log("word in title is " + word)
+            if(this.wordsInTitle.includes(word)){
+                const indexOfWord = this.wordsInTitle.indexOf(word);
+                this.freqOfWord[indexOfWord] += 1;
+                console.log("word " + word + " increase frequency to " + this.freqOfWord[indexOfWord])
+
+            } else {
+                this.wordsInTitle.push(word)
+                const indexOfWord = this.wordsInTitle.indexOf(word);
+                this.freqOfWord.push(1)
+                console.log("Added new word " + word + "frequency of " + this.freqOfWord[indexOfWord])
+            }
+        })
     }
 
 // eslint-disable-next-line no-unused-vars
@@ -168,7 +193,11 @@ export class Analytics {
     static setRanking(ranking, outputObject, dataArray, index, totalPosts) {
         outputObject[ranking].frequency = dataArray[index];
         outputObject[ranking].index = index;
-        outputObject[ranking].string = outputObject.toStringArray[index];
+        if (outputObject.title == this.topThreeWords.title){
+            outputObject[ranking].string = this.wordsInTitle[index];
+        } else {
+            outputObject[ranking].string = outputObject.toStringArray[index];
+        }
         outputObject[ranking].percentage = dataArray[index] / totalPosts;
     }
 
