@@ -26,25 +26,27 @@ export class Analytics {
     static getAnalytics() {
         return {
             weekday: {
-                graphData: {yVal: this.freqDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S']},
+                graphData: {yVal: this.freqDayOfWeek, xLabel: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], showXLabel: true},
                 cardData: this.topThreeDays,
             },
             hours: {
                 graphData: {
                     yVal: this.freqOfHour,
-                    xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+                    xLabel: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+                    showXLabel: true
                 },
                 cardData: this.topThreeHours,
             },
             titleLength: {
                 graphData: {
                     yVal: this.freqOfTitleLength,
-                    xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+                    xLabel: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+                    showXLabel: false,
                 },
                 cardData: this.topThreeTitleLengths,
             },
             word: {
-                graphData: {yVal: this.freqOfWord, xLabel: this.wordsInTitle},
+                graphData: {yVal: this.freqOfWord, xLabel: this.wordsInTitle, showXLabel: false},
                 cardData: this.topThreeWords,
             }
         }
@@ -69,7 +71,7 @@ export class Analytics {
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
 
-        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 5)
+        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 15)
         this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length)
         console.log("after splice")
         console.log(this.wordsInTitle)
