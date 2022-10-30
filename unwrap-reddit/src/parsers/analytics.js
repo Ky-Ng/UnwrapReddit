@@ -69,7 +69,7 @@ export class Analytics {
         this.setTop(this.freqOfHour, this.topThreeHours, this.arrayOfPosts.length);
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
 
-        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 0)
+        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 5)
         this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length)
         console.log("after splice")
         console.log(this.wordsInTitle)
@@ -82,7 +82,7 @@ export class Analytics {
         console.log(arrFreq)
         console.log(arrrVals)
 
-        this.thresholdByFrequency(arrFreq, arrrVals, 3);
+        this.thresholdByFrequency(arrFreq, arrrVals, 5);
         console.log("after splice")
         console.log(arrFreq)
         console.log(arrrVals)
@@ -181,21 +181,28 @@ export class Analytics {
     }
 
     static thresholdByFrequency(arrOfFreq, arrOutput, threshold) {
-        let indexToRemove = [];
-        for (let i = 0; i < arrOfFreq.length; i++) {
+        // let indexToRemove = [];
+        let length = arrOfFreq.length;
+        for (let i = 0; i < length; i++) {
             if (arrOfFreq[i] <= threshold) {
-                indexToRemove.push(i);
+                console.log("word to remove: " + arrOutput[i])
+                console.log("frequency: " + arrOfFreq[i]);
+                arrOfFreq.splice(i, 1)
+                arrOutput.splice(i, 1)
+                i--;
+                length--;
+                // indexToRemove.push(i);
             }
         }
-        console.log("number of indexes to remove " + indexToRemove.length)
-        console.log(indexToRemove)
-        let length = indexToRemove.length;
-        for (let i = 0; i < length; i++) {
-            arrOfFreq.splice(indexToRemove[i], 1)
-            arrOutput.splice(indexToRemove[i], 1)
-            i--;
-            length--;
-        }
+        // console.log("number of indexes to remove " + indexToRemove.length)
+        // console.log(indexToRemove)
+        // let length = indexToRemove.length;
+        // for (let i = 0; i < length; i++) {
+        //     arrOfFreq.splice(indexToRemove[i], 1)
+        //     arrOutput.splice(indexToRemove[i], 1)
+        //     i--;
+        //     length--;
+        // }
     }
 
     static hasWord(arrOfWords, word) {
