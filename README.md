@@ -28,11 +28,9 @@ Components are also lazy loaded to preserve web app efficiency. Optimized sortin
 │   │   ├── DataDisplay
 │   │   │   ├── DataCard.vue
 │   │   │   ├── DataDisplay.vue
-│   │   │   ├── best-attribute-cards
 │   │   │   │   └── AnalyticsHeaderCard.vue
-│   │   │   └── graphs
-│   │   │       └── AnalyticsGraph.vue
-│   │   └── user_input
+│   │   │   │   └── AnalyticsGraph.vue
+│   │   └── UserInput
 │   │       ├── Loader.vue
 │   │       ├── Search.vue
 │   │       └── SubRedditTitle.vue
