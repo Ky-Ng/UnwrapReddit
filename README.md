@@ -1,5 +1,8 @@
 # UnwrapReddit
-Understand and _unwrap_ the mystery behind the popularity of Reddit Posts using the Reddit API and Vue Java Script.
+Motivation: Understand and _unwrap_ the mystery behind the **Analytics of Reddit Posts** using the Reddit API and Vue Java Script.
+
+## Try for yourself! 
+Search any subreddit name and instantly get feedback on the best time, day of week, and title to maximize reception of your Reddit post based on **real, live SubReddit data**.
 
 Live Deploy and Hosting through Firebase: http://bit.ly/redditAPI or https://unwrap-reddit.web.app
 
