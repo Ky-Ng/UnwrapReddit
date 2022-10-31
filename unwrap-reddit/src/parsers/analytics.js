@@ -75,7 +75,7 @@ export class Analytics {
         this.setTop(this.freqOfTitleLength, this.topThreeTitleLengths, this.arrayOfPosts.length)
 
         // Most abundant words in titles
-        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 17);
+        this.thresholdByFrequency(this.freqOfWord, this.wordsInTitle, 2);
         this.setTop(this.freqOfWord, this.topThreeWords, this.arrayOfPosts.length);
         this.createOutputXAxisTitle();
     }
