@@ -6,6 +6,8 @@ Search any subreddit name and instantly get feedback on the best time, day of we
 
 Live Deploy and Hosting through Firebase: http://bit.ly/redditAPI or https://unwrap-reddit.web.app
 
+![Live Gif](https://github.com/Ky-Ng/UnwrapReddit/RedditAPI.gif)
+
 ## Frameworks Used
 **Vue JS** for Dynamic Component Rendering
 
