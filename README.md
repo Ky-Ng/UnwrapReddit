@@ -19,7 +19,7 @@ Handwritten documentation and brainstorming can be found here:
 ### Project File Tree
 Using the Vue Java Script (Vue JS) framework instead of pure HTML and CSS condenses the file tree by allowing dynamic rendering of content and modualarizing repetitive features into reusable Child Components.
 
-Components are also lazy loaded to preserve web app efficiency. Optimizing sorting algorithms through use of Arrays and JavaScript Objects reduces the time complexity of the Analytics algorithms.
+Components are also lazy loaded to preserve web app efficiency. Optimized sorting algorithms through use of Arrays and JavaScript Objects reduces the time complexity of the Analytics algorithms.
 ```
 
 ├── src
