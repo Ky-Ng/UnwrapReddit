@@ -7,11 +7,11 @@ Search any subreddit name and instantly get feedback on the best time, day of we
 Live Deploy and Hosting through Firebase: http://bit.ly/redditAPI or https://unwrap-reddit.web.app
 
 ## Frameworks Used
-Vue JS for Dynamic Component Rendering
+**Vue JS** for Dynamic Component Rendering
 
-Vuetify JS for simple styling following Google's Material Design philosophy
+**Vuetify JS** for simple styling following Google's Material Design philosophy
 
-JavaScript for parsing(scraping) the Reddit API (with Snoowrap Reddit API wrapper)
+**JavaScript** for parsing(scraping) the Reddit API with Snoowrap Reddit API wrapper
 
 ### Project Engineering Notebook
 Handwritten documentation and brainstorming can be found here: 
