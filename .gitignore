@@ -849,3 +849,8 @@
 /unwrap-reddit/node_modules/yargs-parser/
 /unwrap-reddit/node_modules/yorkie/
 /unwrap-reddit/node_modules/.package-lock.json
+/.idea/Code.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
