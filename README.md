@@ -14,7 +14,7 @@ Live Deploy and Hosting through Firebase: http://bit.ly/redditAPI or https://unw
 **JavaScript** for parsing(scraping) the Reddit API with Snoowrap Reddit API wrapper
 
 ### Project Engineering Notebook
-Handwritten documentation and brainstorming can be found here: 
+Handwritten documentation and brainstorming can be found here: https://drive.google.com/file/d/1iBVjecYyGAPTyyon5YUIPPo8ehHfW4G9/view?usp=sharing
 
 ### Project File Tree
 Using the Vue Java Script (Vue JS) framework instead of pure HTML and CSS condenses the file tree by allowing dynamic rendering of content and modualarizing repetitive features into reusable Child Components.
