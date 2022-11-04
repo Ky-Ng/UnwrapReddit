@@ -1,5 +1,5 @@
 # UnwrapReddit
-Motivation: Understand and _unwrap_ the mystery behind the **Analytics of Reddit Posts** using the Reddit API and Vue Java Script.
+Motivation: _Unwrap_ the mystery behind the **What Makes Reddit Posts So Good** by analyzing the **Analytics of Reddit Posts**.
 
 ## Try for yourself! 
 Search any subreddit name and instantly get feedback on the best time, day of week, and title to maximize reception of your Reddit post based on **real, live SubReddit data**.
@@ -9,11 +9,13 @@ Live Deploy and Hosting through Firebase: https://unwrap-reddit.web.app
 ![Live Gif](https://github.com/Ky-Ng/UnwrapReddit/blob/main/unwrap-reddit/RedditAPI.gif)
 
 ## Frameworks Used
-**Vue JS** for Dynamic Component Rendering
+**Firebase Hosting** by Google to allow for live website hosting via command line deploy commands.
 
-**Vuetify JS** for clean styling aesthetic following Google's Material Design philosophy
+**Vue JS** for Dynamic Object-Oriented Component Rendering
 
 **JavaScript** for parsing(scraping) the Reddit API with Snoowrap Reddit API wrapper
+
+**Vuetify JS** for clean styling aesthetic following Google's Material Design philosophy
 
 ## Data Analytics Algorithms and Optimizations
 1. To increase the reliability of getting the top keywords used in the best Reddit post titles, the algorithm employs a set of filter words (such as "a", "the", "this", "are", etc) to reduce the noise of less semantically valued words. The algorithm also has a threshold to eliminate words with low occurences to speed up calculations and frontend rendering.
